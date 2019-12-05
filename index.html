@@ -24,7 +24,6 @@
     <meta property="og:image:width" content="200">
     <meta property="og:image:height" content="200">
     <link href="../assets/css/vendor/bootstrap.min.css" rel="stylesheet">
-    <!--<link rel="stylesheet" type="text/css" href="../assets/css/vendor/jquery.floating-social-share.min.css" />-->
     <link href="../assets/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <script src="assets/js/vendor/jquery.min.js"></script>
@@ -34,7 +33,7 @@
     <script src="assets/js/vendor/angular-animate.min.js"></script>
     <script src="assets/js/vendor/angular-aria.min.js"></script>
     <script src="assets/js/vendor/ngStorage.min.js"></script>
-    <link href='https://fonts.googleapis.com/css?family=Encode Sans Expanded' rel='stylesheet'>
+    <!--<link href='https://fonts.googleapis.com/css?family=Encode Sans Expanded' rel='stylesheet'>-->
     <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
 
     <link href="https://fonts.googleapis.com/css?family=Tajawal&display=swap" rel="stylesheet">
@@ -55,7 +54,7 @@
         <div>
             <a href="index.html" title="{{config.sitename}}">
                 <!--<img src="../assets/img/logo.png" style="height:60px" alt="{{config.sitename}}" />-->
-                <h2 class="text-primary font-beauty">DIZAJN 911</h2>
+                <label class="text-primary font-beauty" style="font-size:20px">DIZAJN 911</label>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -75,12 +74,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#section4" title="kontakt">KONTAKT</a>
                 </li>
-                <!--<li class="nav-item">
-                    <a class="nav-link" href="#section2" title="cijene">Cijene</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#section3" title="rezervacija">Rezervacija</a>
-                </li>-->
             </ul>
         </div>
     </nav>
@@ -178,7 +171,7 @@
     <div id="section4" class="container-fluid section text-white p-5 slideanim bg-primary">
         <div ng-controller="contactCtrl" class="row">
                 <div class="col-lg-3 p-3">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2805.4311005275113!2d14.466171615816156!3d45.31991645107989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4764a0521f8189c3%3A0xd9db8ea3f531870e!2sUl.%20Drage%20Gervaisa%2039%2C%2051000%2C%20Rijeka!5e0!3m2!1shr!2shr!4v1574866403878!5m2!1shr!2shr" frameborder="0" style="border:0; width:100%; height:100%" allowfullscreen="" ></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22421.808747663108!2d14.336609035584376!3d45.374520359290536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4764a60af9f92e03%3A0xebf4091255fc80a8!2sKastav!5e0!3m2!1shr!2shr!4v1575537226935!5m2!1shr!2shr" frameborder="0" style="border:0; width:100%; height:100%" allowfullscreen=""></iframe>
                 </div>
                 <div class="col-lg-4 p-3">
                     <h2 class="text-white">KONTAKT</h2>
@@ -227,12 +220,11 @@
                 <span class="fa fa-chevron-up fa-3x"></span>
             </a>
         </div>
-        <div class="text-right">
-            <a href="https://www.igprog.hr" title="igprog.hr" class="text-white">Copyright © {{year}} IG PROG</a>
+        <div class="text-center mt-5">
+            <p class="small text-muted">Copyright © {{year}} <span class="text-uppercase">{{config.sitename}}</span> | Sva prava pridržana | Made with &#9829; by <a href="https://www.igprog.hr" title="igprog.hr" class="text-muted">IG PROG</a></p>
         </div>
     </div>
     <script src="assets/js/app.js"></script>
-    <!--<script type="text/javascript" src="../assets/js/vendor/jquery.floating-social-share.min.js"></script>-->
 
     <script>
         $(document).ready(function () {
@@ -264,16 +256,5 @@
             });
         })
     </script>
-
-    <!--<script>
-        $("body").floatingSocialShare({
-            buttons: [
-              "facebook", "google-plus", "twitter"
-            ],
-            twitter_counter: true,
-            text: "Podijeli sa: ",
-            url: "https://www.studiotanya.hr/"
-        });
-    </script>-->
 </body>
 </html>

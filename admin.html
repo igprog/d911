@@ -52,19 +52,6 @@
         </div>
     </nav>
 
-    <!--<div ng-if="d.isLogin">
-        <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
-            <ul class="list-group">
-                <li data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start" ng-click="toggleTpl('info')">
-                    <a class="d-flex w-100 justify-content-start align-items-center">
-                        <span class="fa fa-{{ico}} fa-fw mr-3"></span>
-                        <span class="menu-collapsed">test</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>-->
-
     <div ng-if="!d.isLogin">
         <ng-include src="tpl"></ng-include>
     </div>
@@ -169,14 +156,13 @@
                     </div>
                 </form>
             </div>
-            <!--<pre>{{d | json}}</pre>-->
         </div>
     </script>
 
     <script type="text/ng-template" id="productGroups">
         <div ng-if="d.isLogin" ng-controller="productGroupsCtrl">
             <loading-directive loadingtitle="'Učitavanje...'" value="d.loading" size="5"></loading-directive>
-            <h2 class="ml-3">Grupe Proizvoda</h2>
+            <h2 class="ml-3">Grupe proizvoda</h2>
             <div class="row">
                 <div ng-repeat="x in d.records" class="col-sm-4">
                     <div class="card shadow m-3">

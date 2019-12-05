@@ -44,7 +44,8 @@ angular.module('app', ['ngStorage'])
     var data = {
         loading: false,
         records: [],
-        info: null
+        info: null,
+        mainGallery: null
     }
     $scope.d = data;
 
@@ -74,6 +75,13 @@ angular.module('app', ['ngStorage'])
         });
     }
     loadInfo();
+
+    var loadMainGallery = () => {
+        f.post('Info', 'LoadMainGellery', {}).then((d) => {
+            $scope.d.mainGallery = d;
+        });
+    }
+    loadMainGallery();
 
 }])
 

@@ -260,7 +260,7 @@ angular.module('admin', ['ngStorage'])
 .controller('infoCtrl', ['$scope', '$http', 'f', ($scope, $http, f) => {
     var service = 'Info';
 
-    $scope.save = (x) => {
+    var save = (x) => {
         f.post(service, 'Save', { x: x }).then((d) => {
             $scope.d = d;
         });
@@ -273,8 +273,77 @@ angular.module('admin', ['ngStorage'])
     }
     load();
 
+    var upload = (x) => {
+        var content = new FormData(document.getElementById('formUpload_' + x));
+        $http({
+            url: '../UploadHandler.ashx',
+            method: 'POST',
+            headers: { 'Content-Type': undefined },
+            data: content,
+        }).then(function (response) {
+        },
+        function (response) {
+            alert(response.data.d);
+        });
+    }
+
+    var removeMainImg = (x) => {
+        f.post(service, 'DeleteMainImg', { img: x }).then((d) => {
+            //$scope.d = d;
+        });
+    }
+
+    $scope.f = {
+        save: (x) => {
+            return save(x)
+        },
+        upload: (x) => {
+            return upload(x);
+        },
+        removeMainImg: (x) => {
+            return removeMainImg(x);
+        }
+    }
+
     
 }])
+
+
+.controller('uploadCtrl', ['$scope', '$http', 'f', ($scope, $http, f) => {
+    var service = 'Info';
+
+    var upload = (x) => {
+        var content = new FormData(document.getElementById('formUpload_' + x));
+        $http({
+            url: '../UploadHandler.ashx',
+            method: 'POST',
+            headers: { 'Content-Type': undefined },
+            data: content,
+        }).then(function (response) {
+        },
+        function (response) {
+            alert(response.data.d);
+        });
+    }
+
+    var removeMainImg = (x) => {
+        if (confirm('Briši proizvod?')) {
+            f.post(service, 'DeleteMainImg', { img: x }).then((d) => {
+            });
+        }
+    }
+
+    $scope.f = {
+        upload: (x) => {
+            return upload(x);
+        },
+        removeMainImg: (x) => {
+            return removeMainImg(x);
+        }
+    }
+
+}])
+
 
 /********** Directives **********/
 .directive('reservationDirective', () => {
@@ -319,6 +388,18 @@ angular.module('admin', ['ngStorage'])
             link: '='
         },
         templateUrl: './assets/partials/card.html'
+    };
+})
+
+.directive('uploadDirective', () => {
+    return {
+        restrict: 'E',
+        scope: {
+            id: '=',
+            img: '='
+        },
+        templateUrl: './assets/partials/upload.html',
+        controller: 'uploadCtrl'
     };
 })
 

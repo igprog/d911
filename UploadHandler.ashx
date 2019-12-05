@@ -12,13 +12,33 @@ public class UploadHandler : IHttpHandler {
     public void ProcessRequest (HttpContext context) {
         context.Response.ContentType = "text/plain";
         string imgId = context.Request.Form["imgId"];
+
+        string imgFolder = context.Request.Form["imgFolder"];
+
         if (context.Request.Files.Count > 0) {
             HttpFileCollection files = context.Request.Files;
             for (int i = 0; i < files.Count; i++) {
                 HttpPostedFile file = files[i];
-                string fname = context.Server.MapPath(string.Format("~/upload/{0}/gallery/{1}", imgId, file.FileName));
+                //string fname = context.Server.MapPath(string.Format("~/upload/{0}/gallery/{1}", imgId, file.FileName));
+
+                string fname = null;
+                if (string.IsNullOrEmpty(imgFolder)) {
+                    fname = context.Server.MapPath(string.Format("~/upload/{0}/gallery/{1}", imgId, file.FileName));
+                } else {
+                    fname = context.Server.MapPath(string.Format("~/upload/{0}/{1}", imgFolder, imgId));
+                }
+
                 if (!string.IsNullOrEmpty(file.FileName)) {
-                    string folderPath = context.Server.MapPath(string.Format("~/upload/{0}/gallery", imgId));
+
+                    //string folderPath = context.Server.MapPath(string.Format("~/upload/{0}/gallery", imgId));
+
+                    string folderPath = null;
+                    if (string.IsNullOrEmpty(imgFolder)) {
+                        folderPath = context.Server.MapPath(string.Format("~/upload/{0}/gallery", imgId));
+                    } else {
+                        folderPath = context.Server.MapPath(string.Format("~/upload/{0}", imgFolder));
+                    }
+
                     if (!Directory.Exists(folderPath)) {
                         Directory.CreateDirectory(folderPath);
                     }

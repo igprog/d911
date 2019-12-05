@@ -52,6 +52,29 @@ public class Info : System.Web.Services.WebService {
         } catch (Exception e) { return ("Error: " + e); }
     }
 
+    [WebMethod]
+    public string LoadMainGellery() {
+        try {
+            string[] x = GetMainGallery();
+            return JsonConvert.SerializeObject(x, Formatting.None);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    [WebMethod]
+    public string DeleteMainImg(string img) {
+        try {
+            string path = Server.MapPath(string.Format("~/upload/main/{1}", folder, img));
+            if (File.Exists(path)) {
+                File.Delete(path);
+            }
+            return JsonConvert.SerializeObject(null, Formatting.None);
+        } catch (Exception e) {
+            return JsonConvert.SerializeObject(img, Formatting.None);
+        }
+    }
+
     protected void WriteFile(string path, NewInfo value) {
         File.WriteAllText(Server.MapPath(path), JsonConvert.SerializeObject(value));
     }
@@ -72,6 +95,16 @@ public class Info : System.Web.Services.WebService {
         } else {
             return null;
         }
+    }
+
+    string[] GetMainGallery() {
+        string[] xx = null;
+        string path = Server.MapPath("~/upload/main");
+        if (Directory.Exists(path)) {
+            string[] ss = Directory.GetFiles(path);
+            xx = ss.Select(a => Path.GetFileName(a)).ToArray();
+        }
+        return xx;
     }
 
 }

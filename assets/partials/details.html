@@ -1,22 +1,21 @@
-﻿<div class="container section p-2" style="margin-top:100px">
-    <h1 class="card-title">{{product}}</h1>
-    <div class="row section">
-        <div class="col-lg-6">
+﻿<div class="section  text-center" style="margin-top:100px">
+    <div class="container">
+        <h1 class="card-title">{{product}}</h1>
+        <div class="section">
             <p class="lead text-justify">{{shortdesc}}</p>
-        </div>
-        <div class="col-lg-6">
-            <img class="img-thumbnail" src="../upload/{{id}}/gallery/{{img}}" alt="{{product}}">
+            <div>
+                <img class="img-thumbnail" src="../upload/{{id}}/gallery/{{img}}" alt="{{product}}">
+            </div>
+            <p class="lead text-justify">{{longdesc}}</p>
         </div>
     </div>
-    <div class="col-lg-6">
-        <p class="lead text-justify">{{longdesc}}</p>
-    </div>
-    <div class="text-center">
+    <div class="container-fluid">
         <h2>Galerija</h2>
         <hr />
-        <div ng-repeat="x in gallery">
-            <img class="img-thumbnail" src="../upload/{{id}}/gallery/{{x}}" alt="{{service}}">
+        <div class="row">
+            <div ng-repeat="x in gallery" class="col-sm-4 zoom" style="padding:0;margin:0">
+                <img class="img-fluid" src="../upload/{{id}}/gallery/{{x}}" alt="{{product}}">
+            </div>
         </div>
     </div>
-    
 </div>

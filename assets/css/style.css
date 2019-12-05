@@ -6,8 +6,6 @@ style.css
       height:auto;
   }
 body {
-    /*font-family: 'Encode Sans Expanded';*/
-    /*font-size: 16px;*/
     position: relative;
 }
 .banner {
@@ -16,7 +14,6 @@ body {
 }
 .font-beauty {
     font-family: 'Dancing Script', cursive;
-    /*font-size:70px !important;*/
 }
 h2 {
     font-size: 1.5rem !important;
@@ -148,9 +145,6 @@ header {
   header {
     padding: 10px 0 100px;
   }
-  .font-beauty {
-     font-size:40px !important;
-   }
   h1 {
     font-size:35px !important;
   }

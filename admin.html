@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="IG PROG, vl. Igor Gašparović">
     <link href="../assets/css/vendor/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../assets/css/vendor/jquery.floating-social-share.min.css" />
+    <!--<link rel="stylesheet" type="text/css" href="../assets/css/vendor/jquery.floating-social-share.min.css" />-->
     <link href="../assets/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <script src="assets/js/vendor/jquery.min.js"></script>
@@ -15,16 +15,16 @@
     <script src="assets/js/vendor/angular.min.js"></script>
     <script src="assets/js/vendor/angular-animate.min.js"></script>
     <script src="assets/js/vendor/angular-aria.min.js"></script>
-    <script src="assets/js/vendor/aui-min.js"></script>
+    <!--<script src="assets/js/vendor/aui-min.js"></script>
     <script src="assets/js/vendor/moment.js"></script>
-    <script src="assets/js/vendor/ui-scheduler-event-recorder.js"></script>
+    <script src="assets/js/vendor/ui-scheduler-event-recorder.js"></script>-->
     <script src="assets/js/vendor/ngStorage.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Encode Sans Expanded' rel='stylesheet'>
 </head>
 <body id="home" ng-app="admin" ng-controller="adminCtrl" data-spy="scroll" data-target=".navbar" data-offset="60" ng-cloak>
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div>
-            <a href="index.html" title="{{config.sitename}}">
+            <a href="index.html" target="_blank" title="{{config.sitename}}">
                 <!--<img src="../assets/img/logo.png" style="height:60px" alt="{{config.sitename}}" />-->
                 <label class="text-primary font-beauty" style="font-size:20px">DIZAJN 911</label>
             </a>
@@ -80,7 +80,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col bg-light" style="padding-top:100px">
+        <div class="col bg-light" style="padding:100px 0 50px 0">
             <div style="min-height:50px">
                 <ng-include src="tpl"></ng-include>
             </div>
@@ -91,7 +91,7 @@
         <div class="container">
             <div ng-if="!d.isLogin" class="row justify-content-center" style="padding-top:160px">
                 <div class="col-sm-6 shadow p-5">
-                    <h2>Administracija</h2>
+                    <h2>Prijava</h2>
                     <form id="loginform">
                         <div class="form-group">
                             <label for="username">Korisničko ime:</label>
@@ -198,7 +198,7 @@
                                     Grupa br. {{$index+1}}
                                 </div>
                                 <div class="col-sm-6 text-right">
-                                    <button ng-click="f.remove(x)" class="btn btn-outline-danger pull-right"><i class="fa fa-trash-alt"></i> Briši</button>
+                                    <button ng-click="f.remove(x)" class="btn btn-outline-danger pull-right" ng-disabled="!config.debug"><i class="fa fa-trash-alt"></i> Briši</button>
                                 </div>
                             </div>
                         </div>

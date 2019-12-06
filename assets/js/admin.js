@@ -78,7 +78,7 @@ angular.module('admin', ['ngStorage'])
             $scope.d.isLogin = d;
             $sessionStorage.islogin = d;
             if (d === true) {
-                $scope.toggleTpl('products');
+                $scope.toggleTpl('info');
             }
         });
     }
@@ -91,7 +91,7 @@ angular.module('admin', ['ngStorage'])
 
 
     if (isLogin) {
-        $scope.toggleTpl('products');
+        $scope.toggleTpl('info');
     } else {
         $scope.toggleTpl('login');
     }
@@ -273,39 +273,15 @@ angular.module('admin', ['ngStorage'])
     }
     load();
 
-    var upload = (x) => {
-        var content = new FormData(document.getElementById('formUpload_' + x));
-        $http({
-            url: '../UploadHandler.ashx',
-            method: 'POST',
-            headers: { 'Content-Type': undefined },
-            data: content,
-        }).then(function (response) {
-        },
-        function (response) {
-            alert(response.data.d);
-        });
-    }
-
-    var removeMainImg = (x) => {
-        f.post(service, 'DeleteMainImg', { img: x }).then((d) => {
-            //$scope.d = d;
-        });
-    }
-
     $scope.f = {
         save: (x) => {
             return save(x)
         },
         upload: (x) => {
             return upload(x);
-        },
-        removeMainImg: (x) => {
-            return removeMainImg(x);
         }
     }
 
-    
 }])
 
 
@@ -320,6 +296,7 @@ angular.module('admin', ['ngStorage'])
             headers: { 'Content-Type': undefined },
             data: content,
         }).then(function (response) {
+            location.reload(true);
         },
         function (response) {
             alert(response.data.d);
@@ -329,6 +306,7 @@ angular.module('admin', ['ngStorage'])
     var removeMainImg = (x) => {
         if (confirm('Briši proizvod?')) {
             f.post(service, 'DeleteMainImg', { img: x }).then((d) => {
+                location.reload(true);
             });
         }
     }

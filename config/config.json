@@ -2,5 +2,7 @@
   "debug": true,
   "url": "https://www.dizajn911.com",
   "domain": "dizajn911.com",
-  "sitename":  "Dizajn 911"
+  "sitename": "Dizajn 911",
+  "showcarddesc": true,
+  "showgooglemap": true
 }

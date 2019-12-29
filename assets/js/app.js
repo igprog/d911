@@ -175,7 +175,8 @@ angular.module('app', ['ngStorage'])
             product: '=',
             shortdesc: '=',
             img: '=',
-            link: '='
+            link: '=',
+            showdesc: '='
         },
         templateUrl: './assets/partials/card.html'
     };

@@ -30,6 +30,12 @@ public class Info : System.Web.Services.WebService {
         public string email;
         public string services;
         public string about;
+        public Social social;
+    }
+
+    public class Social {
+        public string facebook;
+        public string instagram;
     }
 
     [WebMethod]
@@ -81,6 +87,7 @@ public class Info : System.Web.Services.WebService {
 
     public NewInfo GetInfo() {
         NewInfo x = new NewInfo();
+        x.social = new Social();
         string json = ReadFile();
         if (!string.IsNullOrEmpty(json)) {
             return JsonConvert.DeserializeObject<NewInfo>(json);

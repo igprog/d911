@@ -50,14 +50,21 @@
     </style>
 </head>
 <body id="home" ng-app="app" ng-controller="appCtrl" data-spy="scroll" data-target=".navbar" data-offset="60" ng-cloak>
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top">
             <a href="index.html" title="{{config.sitename}}">
                 <!--<img src="../assets/img/logo.png" style="height:60px" alt="{{config.sitename}}" />-->
-                <label class="text-primary font-beauty" style="font-size:20px">DIZAJN 911</label>
+                <label style="font-size:20px; color:#fff">DIZAJN 911</label>
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon">
+                    <i class="fas fa-bars" style="color:#fff; font-size:28px;"></i>
+                </span>
+            </button>-->
+        <button class="navbar-toggler" type="button" aria-label="Toggle navigation" onclick="openNav()">
+            <span class="navbar-toggler-icon">
+                <i class="fas fa-bars" style="color:#fff; font-size:28px;"></i>
+            </span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -75,7 +82,18 @@
             </ul>
         </div>
     </nav>
-    <div ng-show="d.mainGallery.length>0" id="carousel" class="carousel slide" data-ride="carousel">
+
+    <!--<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>-->
+    <div id="mySidenav" class="sidenav" onclick="closeNav()">
+        <!--<a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="padding-top:100px">&times;</a>-->
+        <a href="#section1" title="usluge">USLUGE</a>
+        <a href="#section2" title="cijene">PORTFOLIO</a>
+        <a href="#section3" title="o nama">O NAMA</a>
+        <a href="#section4" title="kontakt">KONTAKT</a>
+    </div>
+
+
+    <div ng-show="d.mainGallery.length>0" id="carousel" class="carousel slide" data-ride="carousel" onclick="closeNav()">
         <ul class="carousel-indicators">
             <li data-target="#carousel" data-slide-to="0" class="active"></li>
             <li data-target="#carousel" data-slide-to="1"></li>
@@ -96,36 +114,36 @@
             <div class="carousel-item active">
                 <img src="../upload/main/01.jpg" alt="01" width="1100" height="500">
                 <div class="carousel-caption">
-                    <h3>Dizajn 911</h3>
-                    <p>...</p>
+                    <!--<h3>Dizajn 911</h3>
+                    <p>...</p>-->
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="../upload/main/02.jpg" alt="02" width="1100" height="500">
                 <div class="carousel-caption">
-                    <h3>Dizajn 911</h3>
-                    <p>...</p>
+                    <!--<h3>Dizajn 911</h3>
+                    <p>...</p>-->
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="../upload/main/03.jpg" alt="03" width="1100" height="500">
                 <div class="carousel-caption">
-                    <h3>Dizajn 911</h3>
-                    <p>...</p>
+                    <!--<h3>Dizajn 911</h3>
+                    <p>...</p>-->
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="../upload/main/04.jpg" alt="04" width="1100" height="500">
                 <div class="carousel-caption">
-                    <h3>Dizajn 911</h3>
-                    <p>...</p>
+                    <!--<h3>Dizajn 911</h3>
+                    <p>...</p>-->
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="../upload/main/05.jpg" alt="05" width="1100" height="500">
                 <div class="carousel-caption">
-                    <h3>Dizajn 911</h3>
-                    <p>...</p>
+                    <!--<h3>Dizajn 911</h3>
+                    <p>...</p>-->
                 </div>
             </div>
         </div>
@@ -137,10 +155,9 @@
         </a>
     </div>
 
-
     <loading-directive loadingtitle="'Učitavanje...'" value="d.loading" size="5"></loading-directive>
 
-    <div class="text-center p-3">
+    <div class="text-center p-3" onclick="closeNav()">
         <h1>Dizajn 911</h1>
         <h2>studio za dizajn interijera</h2>
         <div id="section1" style="margin-top:40px" class="container section slideanim">
@@ -175,8 +192,18 @@
             </div>-->
         </div>
 
+        <div class="container section slideanim">
+            <h2 class="text-primary">PRATITE NAS NA DRUŠTVENIM MREŽAMA</h2>
+            <hr />
+            <div>
+                <a href="{{info.social.facebook}}" target="_blank" class="btn btn-primary btn-social" title="facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="{{info.social.instagram}}" target="_blank" class="btn btn-primary btn-social" title="instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+
     </div>
-    <div id="section4" class="container-fluid section text-white p-5 slideanim bg-primary">
+    
+    <div id="section4" class="container-fluid section text-white p-5 slideanim bg-primary" onclick="closeNav()">
         <div ng-controller="contactCtrl" class="row">
                 <div class="col-lg-3 p-3">
                     <iframe ng-if="config.showgooglemap===true" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22421.808747663108!2d14.336609035584376!3d45.374520359290536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4764a60af9f92e03%3A0xebf4091255fc80a8!2sKastav!5e0!3m2!1shr!2shr!4v1575537226935!5m2!1shr!2shr" frameborder="0" style="border:0; width:100%; height:100%" allowfullscreen=""></iframe>
@@ -232,6 +259,7 @@
             <p class="small text-muted">Copyright © {{year}} <span class="text-uppercase">{{config.sitename}}</span> | Sva prava pridržana | Made with &#9829; by <a href="https://www.igprog.hr" title="igprog.hr" class="text-muted">IG PROG</a></p>
         </div>
     </div>
+    
     <script src="assets/js/app.js"></script>
 
     <script>
@@ -263,6 +291,14 @@
                 slideanim();
             });
         })
+
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
     </script>
 </body>
 </html>

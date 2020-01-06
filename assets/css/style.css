@@ -7,6 +7,8 @@ style.css
   }
 body {
     position: relative;
+    color: #fff;
+    background: #000;
 }
 .banner {
     background: url("../img/banner.jpg") no-repeat center center;
@@ -30,7 +32,7 @@ h4 {
 }  
 .navbar {
     margin-bottom: 0;
-    background-color: #f0f6fb;
+    background-color: #000;
     opacity:0.8;
     z-index: 9999;
     border: 0;
@@ -42,15 +44,15 @@ h4 {
     /*font-family: Montserrat, sans-serif;*/
 }
 .navbar li a, .navbar .navbar-brand {
-    color: black !important;
+    color: #fff !important;
 }
 .navbar-nav li a:hover, .navbar-nav li.active a {
-    color: #ff6b6b !important;
+    color: #fff !important;
     /*background-color: #fff !important;*/
 }
 .navbar-default .navbar-toggle {
     border-color: transparent;
-    color: #fff !important;
+    color: #000 !important;
 }
 footer .glyphicon {
     font-size: 20px;
@@ -110,7 +112,7 @@ footer .glyphicon {
     background-color: #4e4e4e !important;
 }
 .text-primary {
-    color: #4e4e4e !important;
+    color: #fff !important;
 }
 .text-shadow {
     text-shadow: 2px 2px #828181;
@@ -298,4 +300,63 @@ header {
   padding-left: 10px;
 }
 /********** Sidebar **********/
+
+.btn-social {
+  padding: 20px;
+  font-size: 30px;
+  width: 90px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px 2px;
+  border-radius: 50%;
+}
+
+.btn-social:hover {
+    opacity: 0.7;
+}
+
+/*********** Sidenav ************/
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #000;
+  opacity: 0.8;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #fff;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+  .sidenav {visibility:hidden;}
+}
+
+
+/*********** Sidenav ************/
 

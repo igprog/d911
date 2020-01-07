@@ -33,14 +33,11 @@
     <script src="assets/js/vendor/angular-animate.min.js"></script>
     <script src="assets/js/vendor/angular-aria.min.js"></script>
     <script src="assets/js/vendor/ngStorage.min.js"></script>
-    <!--<link href='https://fonts.googleapis.com/css?family=Encode Sans Expanded' rel='stylesheet'>-->
-    <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
-
-    <link href="https://fonts.googleapis.com/css?family=Tajawal&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Tajawal', sans-serif;
-            font-size: 22px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 20px;
         }
         /* Make the image fully responsive */
         .carousel-inner img {
@@ -163,7 +160,7 @@
         <div id="section1" style="margin-top:40px" class="container section slideanim">
             <h2 class="text-primary">USLUGE</h2>
             <hr />
-            <div>
+            <div class="text-justify">
                 <p>{{info.services}}</p>
             </div>
         </div>
@@ -186,7 +183,9 @@
         <div ng-if="info.about" id="section3" class="container section slideanim">
             <h2 class="text-primary">O NAMA</h2>
             <hr />
-            <p>{{info.about}}</p>
+            <div class="text-justify">
+                <p>{{info.about}}</p>
+            </div>
             <!--<div>
                 <img src="assets/img/logo.png" class="rounded-circle img-thumbnail shadow" style="width:300px" alt="{{config.sitename}}" />
             </div>-->
@@ -293,7 +292,11 @@
         })
 
         function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
+            if (document.getElementById("mySidenav").style.width == "250px") {
+                document.getElementById("mySidenav").style.width = "0";
+            } else {
+                document.getElementById("mySidenav").style.width = "250px";
+            }
         }
 
         function closeNav() {

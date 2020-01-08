@@ -2,8 +2,16 @@
 app.js
 (c) 2019 IG PROG, www.igprog.hr
 */
-angular.module('app', ['ngStorage'])
-.config(['$httpProvider', ($httpProvider) => {
+angular.module('app', ['ngStorage', 'pascalprecht.translate'])
+.config(['$httpProvider', '$translateProvider', '$translatePartialLoaderProvider', ($httpProvider, $translateProvider, $translatePartialLoaderProvider) => {
+
+    $translateProvider.useLoader('$translatePartialLoader', {
+        urlTemplate: './assets/json/translations/{lang}/{part}.json'
+    });
+    $translateProvider.preferredLanguage('hr');
+    $translatePartialLoaderProvider.addPart('main');
+    $translateProvider.useSanitizeValueStrategy('escape');
+
     //*******************disable catche**********************
     if (!$httpProvider.defaults.headers.get) {
         $httpProvider.defaults.headers.get = {};
@@ -40,7 +48,7 @@ angular.module('app', ['ngStorage'])
     }
 }])
 
-.controller('appCtrl', ['$scope', '$http', '$rootScope', 'f', function ($scope, $http, $rootScope, f) {
+.controller('appCtrl', ['$scope', '$http', '$rootScope', 'f', '$sessionStorage', '$translate', '$translatePartialLoader', function ($scope, $http, $rootScope, f, $sessionStorage, $translate, $translatePartialLoader) {
     var data = {
         loading: false,
         records: [],
@@ -49,16 +57,32 @@ angular.module('app', ['ngStorage'])
     }
     $scope.d = data;
 
-
     var getConfig = function () {
         $http.get('../config/config.json')
           .then(function (response) {
               $rootScope.config = response.data;
+              $sessionStorage.config = response.data;
           });
     };
     getConfig();
+    //if (!angular.isDefined($sessionStorage.config)) {
+    //    getConfig();
+    //} else {
+    //    $rootScope.config = $sessionStorage.config;
+    //    //reloadPage();
+    //}
+
     $scope.year = (new Date).getFullYear();
 
+    $scope.setLang = function (x) {
+        $rootScope.config.lang = x;
+        $sessionStorage.config.lang = x;
+        $translate.use(x.code);
+        $translatePartialLoader.addPart('main');
+    };
+    //if (angular.isDefined($sessionStorage.config)) {
+    //    $scope.setLang($sessionStorage.config.lang);
+    //}
 
     var loadProducts = () => {
         $scope.d.loading = true;

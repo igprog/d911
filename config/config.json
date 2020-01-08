@@ -4,5 +4,20 @@
   "domain": "dizajn911.com",
   "sitename": "Dizajn 911",
   "showcarddesc": true,
-  "showgooglemap": false
+  "showgooglemap": false,
+  "showlang": true,
+  "languages": [
+    {
+      "code": "hr",
+      "title": "croatian"
+    },
+    {
+      "code": "en",
+      "title": "english"
+    }
+  ],
+  "lang": {
+    "code": "hr",
+    "title": "croatian"
+  }
 }

@@ -62,6 +62,8 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate'])
           .then(function (response) {
               $rootScope.config = response.data;
               $sessionStorage.config = response.data;
+              loadProducts();
+              loadInfo();
           });
     };
     getConfig();
@@ -79,26 +81,28 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate'])
         $sessionStorage.config.lang = x;
         $translate.use(x.code);
         $translatePartialLoader.addPart('main');
+        loadProducts();
+        loadInfo();
     };
     //if (angular.isDefined($sessionStorage.config)) {
     //    $scope.setLang($sessionStorage.config.lang);
     //}
 
     var loadProducts = () => {
+        debugger;
         $scope.d.loading = true;
-        f.post('Products', 'Load', {}).then((d) => {
+        f.post('Products', 'Load', { lang: $sessionStorage.config.lang.code }).then((d) => {
             $scope.d.records = d;
             $scope.d.loading = false;
         });
     }
-    loadProducts();
 
     var loadInfo = () => {
-        f.post('Info', 'Load', {}).then((d) => {
+        f.post('Info', 'Load', { lang: $sessionStorage.config.lang.code }).then((d) => {
             $rootScope.info = d;
         });
     }
-    loadInfo();
+    //loadInfo();
 
     var loadMainGallery = () => {
         f.post('Info', 'LoadMainGellery', {}).then((d) => {

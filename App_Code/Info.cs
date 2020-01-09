@@ -14,6 +14,8 @@ using Igprog;
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 [System.Web.Script.Services.ScriptService]
 public class Info : System.Web.Services.WebService {
+    Global G = new Global();
+    Tran T = new Tran();
     string path = "~/data/info.json";
     string folder = "~/data/";
 
@@ -39,9 +41,9 @@ public class Info : System.Web.Services.WebService {
     }
 
     [WebMethod]
-    public string Load() {
+    public string Load(string lang) {
         try {
-            return JsonConvert.SerializeObject(GetInfo(), Formatting.None);
+            return JsonConvert.SerializeObject(GetInfo(lang), Formatting.None);
         } catch (Exception e) {
             return JsonConvert.SerializeObject(e.Message, Formatting.None);
         }
@@ -54,7 +56,7 @@ public class Info : System.Web.Services.WebService {
                 Directory.CreateDirectory(Server.MapPath(folder));
             }
             WriteFile(path, x);
-            return Load();
+            return Load(null);
         } catch (Exception e) { return ("Error: " + e); }
     }
 
@@ -85,12 +87,17 @@ public class Info : System.Web.Services.WebService {
         File.WriteAllText(Server.MapPath(path), JsonConvert.SerializeObject(value));
     }
 
-    public NewInfo GetInfo() {
+    public NewInfo GetInfo(string lang) {
         NewInfo x = new NewInfo();
         x.social = new Social();
         string json = ReadFile();
         if (!string.IsNullOrEmpty(json)) {
-            return JsonConvert.DeserializeObject<NewInfo>(json);
+            x = JsonConvert.DeserializeObject<NewInfo>(json);
+            List<Tran.NewTran> tran = T.LoadData(null, G.recordType.about, lang);
+            x.about = !string.IsNullOrEmpty(lang) && tran.Count > 0 ? tran[0].tran : x.about;
+            tran = T.LoadData(null, G.recordType.services, lang);
+            x.services = !string.IsNullOrEmpty(lang) && tran.Count > 0 ? tran[0].tran : x.services;
+            return x;
         } else {
             return x;
         }

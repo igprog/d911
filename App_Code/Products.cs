@@ -22,6 +22,7 @@ using Igprog;
 public class Products : System.Web.Services.WebService {
     Global G = new Global();
     DataBase DB = new DataBase();
+    Tran T = new Tran();
 
     public Products () {
     }
@@ -54,23 +55,23 @@ public class Products : System.Web.Services.WebService {
             x.img = null;
             x.isActive = true;
             x.displayType = 0;
-            return JsonConvert.SerializeObject(x, Formatting.Indented);    
-        } catch (Exception e) {
-            return e.Message;
-        }
-    }
-
-    [WebMethod]
-    public string Load() {
-        try {
-            return JsonConvert.SerializeObject(LoadData(), Formatting.None);
+            return JsonConvert.SerializeObject(x, Formatting.None);    
         } catch (Exception e) {
             return JsonConvert.SerializeObject(e.Message, Formatting.None);
         }
     }
 
-    public List<NewProduct> LoadData() {
-        DB.CreateDataBase(G.products);
+    [WebMethod]
+    public string Load(string lang) {
+        try {
+            return JsonConvert.SerializeObject(LoadData(lang), Formatting.None);
+        } catch (Exception e) {
+            return JsonConvert.SerializeObject(e.Message, Formatting.None);
+        }
+    }
+
+    public List<NewProduct> LoadData(string lang) {
+        DB.CreateDataBase(G.db.products);
         string sql = "SELECT id, productGroup, title, shortDesc, longDesc, img, isActive, displayType FROM products";
         List<NewProduct> xx = new List<NewProduct>();
         using (var connection = new SQLiteConnection("Data Source=" + DB.GetDataBasePath(G.dataBase))) {
@@ -82,9 +83,12 @@ public class Products : System.Web.Services.WebService {
                         NewProduct x = new NewProduct();
                         x.id = G.ReadS(reader, 0);
                         x.productGroup = G.ReadS(reader, 1);
-                        x.title = G.ReadS(reader, 2);
-                        x.shortDesc = G.ReadS(reader, 3);
-                        x.longDesc = G.ReadS(reader, 4);
+                        List<Tran.NewTran> tran = T.LoadData(x.id, G.recordType.productTitle, lang);
+                        x.title = !string.IsNullOrEmpty(lang) && tran.Count > 0 ? tran[0].tran : G.ReadS(reader, 2);
+                        tran = T.LoadData(x.id, G.recordType.productShortDesc, lang);
+                        x.shortDesc = !string.IsNullOrEmpty(lang) && tran.Count > 0 ? tran[0].tran : G.ReadS(reader, 3);
+                        tran = T.LoadData(x.id, G.recordType.productLongDesc, lang);
+                        x.longDesc = !string.IsNullOrEmpty(lang) && tran.Count > 0 ? tran[0].tran : G.ReadS(reader, 4);
                         x.img = G.ReadS(reader, 5);
                         x.isActive = G.ReadB(reader, 6);
                         x.displayType = G.ReadI(reader, 7);
@@ -135,7 +139,7 @@ public class Products : System.Web.Services.WebService {
     [WebMethod]
     public string Save(NewProduct x) {
         try {
-            DB.CreateDataBase(G.products);
+            DB.CreateDataBase(G.db.products);
             string sql = null;
             if (string.IsNullOrEmpty(x.id)) {
                 x.id = Guid.NewGuid().ToString();
@@ -152,7 +156,7 @@ public class Products : System.Web.Services.WebService {
                 }
                 connection.Close();
             }
-            return JsonConvert.SerializeObject(LoadData(), Formatting.None);
+            return JsonConvert.SerializeObject(LoadData(null), Formatting.None);
         } catch (Exception e) {
             return JsonConvert.SerializeObject(e.Message, Formatting.None);
         }
@@ -169,7 +173,7 @@ public class Products : System.Web.Services.WebService {
                 }
                 connection.Close();
             }
-            return JsonConvert.SerializeObject(LoadData(), Formatting.None);
+            return JsonConvert.SerializeObject(LoadData(null), Formatting.None);
         } catch (Exception e) {
             return JsonConvert.SerializeObject(e.Message, Formatting.None);
         }
@@ -188,7 +192,7 @@ public class Products : System.Web.Services.WebService {
                     }
                 }
             }
-            return JsonConvert.SerializeObject(LoadData(), Formatting.None);
+            return JsonConvert.SerializeObject(LoadData(null), Formatting.None);
         } catch (Exception e) {
             return JsonConvert.SerializeObject(e.Message, Formatting.None);
         }
@@ -226,7 +230,7 @@ public class Products : System.Web.Services.WebService {
                 }
                 connection.Close();
             }
-            return JsonConvert.SerializeObject(LoadData(), Formatting.None);
+            return JsonConvert.SerializeObject(LoadData(null), Formatting.None);
         } catch (Exception e) {
             return JsonConvert.SerializeObject(e.Message, Formatting.None);
         }

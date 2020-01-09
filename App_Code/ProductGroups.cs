@@ -51,7 +51,7 @@ public class ProductGroups : System.Web.Services.WebService {
     }
 
     public List<NewProductGroup> LoadData() {
-        DB.CreateDataBase(G.productGroups);
+        DB.CreateDataBase(G.db.productGroups);
         string sql = "SELECT id, title FROM ProductGroups";
         List<NewProductGroup> xx = new List<NewProductGroup>();
         using (var connection = new SQLiteConnection("Data Source=" + DB.GetDataBasePath(G.dataBase))) {
@@ -96,7 +96,7 @@ public class ProductGroups : System.Web.Services.WebService {
     [WebMethod]
     public string Save(NewProductGroup x) {
         try {
-            DB.CreateDataBase(G.productGroups);
+            DB.CreateDataBase(G.db.productGroups);
             string sql = null;
             if (string.IsNullOrEmpty(x.id)) {
                 x.id = Guid.NewGuid().ToString();

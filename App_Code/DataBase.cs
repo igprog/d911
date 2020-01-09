@@ -14,14 +14,14 @@ public class DataBase {
     }
 
     public void ProductGroups(string path) {
-            string sql = @"CREATE TABLE IF NOT EXISTS productGroups
+        string sql = @"CREATE TABLE IF NOT EXISTS productGroups
                 (id VARCHAR(50),
                 title NVARCHAR(200))";
-            CreateTable(path, sql);
-        }
+        CreateTable(path, sql);
+    }
 
-        public void Products(string path) {
-            string sql = @"CREATE TABLE IF NOT EXISTS products
+    public void Products(string path) {
+        string sql = @"CREATE TABLE IF NOT EXISTS products
                     (id VARCHAR(50),
                     productGroup VARCHAR(50),
                     title NVARCHAR(50),
@@ -30,8 +30,18 @@ public class DataBase {
                     img NVARCHAR(50),
                     isActive NVARCHAR(50),
                     displayType INTEGER)";
-            CreateTable(path, sql);
-        }
+        CreateTable(path, sql);
+    }
+
+    public void Tran(string path) {
+        string sql = @"CREATE TABLE IF NOT EXISTS tran
+                    (id VARCHAR(50),
+                    productId VARCHAR(50),
+                    tran TEXT,
+                    recordType NVARCHAR(50),
+                    lang NVARCHAR(50))";
+        CreateTable(path, sql);
+    }
 
     public void CreateDataBase(string table) {
             try {
@@ -68,7 +78,10 @@ public class DataBase {
                 case "products":
                     Products(path);
                     break;
-                default:
+                case "tran":
+                    Tran(path);
+                    break;
+            default:
                     break;
             }
         }

@@ -2,7 +2,7 @@
 app.js
 (c) 2019 IG PROG, www.igprog.hr
 */
-angular.module('admin', ['ngStorage'])
+angular.module('admin', ['ngStorage', 'ngMaterial'])
 .config(['$httpProvider', ($httpProvider) => {
     //*******************disable catche**********************
     if (!$httpProvider.defaults.headers.get) {
@@ -135,7 +135,7 @@ angular.module('admin', ['ngStorage'])
                 });
             }
         }
-        
+
         $scope.f = {
             init: () => {
                 return init();
@@ -152,12 +152,13 @@ angular.module('admin', ['ngStorage'])
         }
 }])
 
-.controller('productsCtrl', ['$scope', '$http', 'f', ($scope, $http, f) => {
+.controller('productsCtrl', ['$scope', '$http', 'f', '$mdDialog', ($scope, $http, f, $mdDialog) => {
     var service = 'Products';
     var data = {
         loading: false,
         productGroups: [],
-        records: []
+        records: [],
+        currProduct: null
     }
     $scope.d = data;
 
@@ -232,6 +233,76 @@ angular.module('admin', ['ngStorage'])
         });
     }
 
+    var openTranPopup = function (x, type) {
+        $mdDialog.show({
+            controller: tranPopupCtrl,
+            templateUrl: './assets/partials/popup/tran.html',
+            parent: angular.element(document.body),
+            clickOutsideToClose: true,
+            d: { data: x, type: type }
+        })
+       .then(function (x) {
+       }, function () {
+       });
+    }
+
+    var tranPopupCtrl = function ($scope, $mdDialog, $http, d, f) {
+        var service = 'Tran';
+        var init = () => {
+            f.post(service, 'Init', {}).then((res) => {
+                $scope.d = {
+                    tran: res,
+                    data: d.data,
+                    langs: [
+                        {
+                            id: null,
+                            lang: 'en',
+                            tran: null
+                        },
+                        {
+                            id: null,
+                            lang: 'ru',
+                            tran: null
+                        }
+                    ]
+                }
+                $scope.d.tran.productId = d.data.id;
+                $scope.d.tran.recordType = d.type;
+
+                angular.forEach($scope.d.langs, function (value, key) {
+                    f.post(service, 'Get', { productId: d.data.id, recordType: d.type, lang: value.lang }).then((res) => {
+                        if (res.length > 0) {
+                            $scope.d.langs[key].id = res[0].id;
+                            $scope.d.langs[key].tran = res[0].tran;
+                        }
+                    });
+                });
+            });
+        }
+        init();
+
+        var save = (d, x) => {
+            d.tran.id = x.id;
+            d.tran.tran = x.tran;
+            d.tran.lang = x.lang;
+            console.log(d.tran);
+
+            f.post(service, 'Save', { x: d.tran }).then((d) => {
+                init();
+            });
+
+            //$mdDialog.hide();
+        }
+
+        $scope.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+        $scope.confirm = function (d, x) {
+            save(d, x);
+        }
+    };
+
     $scope.f = {
         load: () => {
             return load();
@@ -253,11 +324,14 @@ angular.module('admin', ['ngStorage'])
         },
         setMainImg: (x, img) => {
             return setMainImg(x, img);
+        },
+        openTranPopup: (x, type) => {
+            return openTranPopup(x, type);
         }
     }
 }])
 
-.controller('infoCtrl', ['$scope', '$http', 'f', ($scope, $http, f) => {
+.controller('infoCtrl', ['$scope', '$http', 'f', '$mdDialog', ($scope, $http, f, $mdDialog) => {
     var service = 'Info';
 
     var save = (x) => {
@@ -267,11 +341,81 @@ angular.module('admin', ['ngStorage'])
     }
 
     var load = () => {
-        f.post(service, 'Load', {}).then((d) => {
+        f.post(service, 'Load', { lang: null }).then((d) => {
             $scope.d = d;
         });
     }
     load();
+
+    var openTranPopup = function (x, type) {
+        $mdDialog.show({
+            controller: tranPopupCtrl,
+            templateUrl: './assets/partials/popup/tran.html',
+            parent: angular.element(document.body),
+            clickOutsideToClose: true,
+            d: { data: x, type: type }
+        })
+       .then(function (x) {
+       }, function () {
+       });
+    }
+
+    var tranPopupCtrl = function ($scope, $mdDialog, $http, d, f) {
+        var service = 'Tran';
+        var init = () => {
+            f.post(service, 'Init', {}).then((res) => {
+                $scope.d = {
+                    tran: res,
+                    data: d.data,
+                    langs: [
+                        {
+                            id: null,
+                            lang: 'en',
+                            tran: null
+                        },
+                        {
+                            id: null,
+                            lang: 'ru',
+                            tran: null
+                        }
+                    ]
+                }
+                $scope.d.tran.productId = null;
+                $scope.d.tran.recordType = d.type;
+
+                angular.forEach($scope.d.langs, function (value, key) {
+                    f.post(service, 'Get', { productId: d.data.id, recordType: d.type, lang: value.lang }).then((res) => {
+                        if (res.length > 0) {
+                            $scope.d.langs[key].id = res[0].id;
+                            $scope.d.langs[key].tran = res[0].tran;
+                        }
+                    });
+                });
+            });
+        }
+        init();
+
+        var save = (d, x) => {
+            $scope.d.tran.id = x.id;
+            $scope.d.tran.tran = x.tran;
+            $scope.d.tran.lang = x.lang;
+            //console.log(d.tran);
+
+            f.post(service, 'Save', { x: d.tran }).then((d) => {
+                init();
+            });
+
+            //$mdDialog.hide();
+        }
+
+        $scope.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+        $scope.confirm = function (d, x) {
+            save(d, x);
+        }
+    };
 
     $scope.f = {
         save: (x) => {
@@ -279,6 +423,9 @@ angular.module('admin', ['ngStorage'])
         },
         upload: (x) => {
             return upload(x);
+        },
+        openTranPopup: (x, type) => {
+            return openTranPopup(x, type)
         }
     }
 
@@ -392,6 +539,46 @@ angular.module('admin', ['ngStorage'])
             size: '='
         },
         templateUrl: './assets/partials/loading.html'
+    };
+})
+
+.directive('jsonDirective', () => {
+    return {
+        restrict: 'E',
+        scope: {
+            data: '=',
+            debug: '='
+        },
+        templateUrl: './assets/partials/json.html',
+        controller: 'jsonCtrl'
+    };
+})
+.controller('jsonCtrl', ['$scope', ($scope) => {
+    $scope.isShow = false;
+    $scope.show = () => {
+        $scope.isShow = !$scope.isShow;
+    }
+}])
+
+.directive('modalDirective', () => {
+    return {
+        restrict: 'E',
+        scope: {
+            id: '=',
+            headertitle: '=',
+            data: '=',
+            src: '='
+        },
+        templateUrl: './assets/partials/modal.html'
+    };
+})
+
+.directive('tranBtn', () => {
+    return {
+        restrict: 'E',
+        scope: {
+        },
+        templateUrl: './assets/partials/tranbtn.html'
     };
 })
 

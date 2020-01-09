@@ -176,7 +176,7 @@
             <h2 class="text-primary">PORTFOLIO</h2>
             <hr />
             <div class="row mt-2 p-3 text-center" style="overflow:hidden">
-                <div class="col-lg-4 p-2" ng-repeat="x in d.records">
+                <div class="col-lg-4 p-2" ng-repeat="x in d.records track by $index">
                     <card-directive id="x.id"
                                     product="x.title"
                                     shortdesc="x.shortDesc"

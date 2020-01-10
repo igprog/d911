@@ -56,7 +56,7 @@
             </a>
         <div class="dropdown pl-5">
             <label class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="assets/img/{{config.lang.code}}.svg" alt="{{config.lang.code}}" /> {{config.lang.title | translate}}
+                <img src="assets/img/{{lang}}.svg" alt="{{lang}}" /> <!--{{config.lang.title | translate}}-->
             </label>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="" ng-repeat="x in config.languages" ng-click="setLang(x)"><img src="assets/img/{{x.code}}.svg" alt="{{x.code}}" /> {{x.title | translate}}</a>
@@ -182,7 +182,8 @@
                                     shortdesc="x.shortDesc"
                                     img="x.img"
                                     link="'details'"
-                                    showdesc="config.showcarddesc">
+                                    showdesc="config.showcarddesc"
+                                    lang="lang">
                     </card-directive>
                 </div>
             </div>

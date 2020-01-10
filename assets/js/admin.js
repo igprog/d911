@@ -172,7 +172,7 @@ angular.module('admin', ['ngStorage', 'ngMaterial'])
     loadProductGroups();
 
     var load = () => {
-        f.post(service, 'Load', {}).then((d) => {
+        f.post(service, 'Load', { lang: 'hr' }).then((d) => {
             $scope.d.records = d;
         });
     }
@@ -470,15 +470,15 @@ angular.module('admin', ['ngStorage', 'ngMaterial'])
 
 
 /********** Directives **********/
-.directive('reservationDirective', () => {
-    return {
-        restrict: 'E',
-        scope: {
-            service: '='
-        },
-        templateUrl: './assets/partials/reservation.html'
-    };
-})
+//.directive('reservationDirective', () => {
+//    return {
+//        restrict: 'E',
+//        scope: {
+//            service: '='
+//        },
+//        templateUrl: './assets/partials/reservation.html'
+//    };
+//})
 
 .directive('detailsDirective', () => {
     return {
@@ -489,7 +489,7 @@ angular.module('admin', ['ngStorage', 'ngMaterial'])
             img: '=',
             price: '='
         },
-        templateUrl: './assets/partials/details.html'
+        templateUrl: './assets/partials/directive/details.html'
     };
 })
 
@@ -499,7 +499,7 @@ angular.module('admin', ['ngStorage', 'ngMaterial'])
         scope: {
             site: '='
         },
-        templateUrl: './assets/partials/navbar.html'
+        templateUrl: './assets/partials/directive/navbar.html'
     };
 })
 
@@ -511,7 +511,7 @@ angular.module('admin', ['ngStorage', 'ngMaterial'])
             desc: '=',
             link: '='
         },
-        templateUrl: './assets/partials/card.html'
+        templateUrl: './assets/partials/directive/card.html'
     };
 })
 
@@ -522,7 +522,7 @@ angular.module('admin', ['ngStorage', 'ngMaterial'])
             id: '=',
             img: '='
         },
-        templateUrl: './assets/partials/upload.html',
+        templateUrl: './assets/partials/directive/upload.html',
         controller: 'uploadCtrl'
     };
 })
@@ -537,7 +537,7 @@ angular.module('admin', ['ngStorage', 'ngMaterial'])
             pdf: '=',
             size: '='
         },
-        templateUrl: './assets/partials/loading.html'
+        templateUrl: './assets/partials/directive/loading.html'
     };
 })
 
@@ -548,7 +548,7 @@ angular.module('admin', ['ngStorage', 'ngMaterial'])
             data: '=',
             debug: '='
         },
-        templateUrl: './assets/partials/json.html',
+        templateUrl: './assets/partials/directive/json.html',
         controller: 'jsonCtrl'
     };
 })
@@ -559,25 +559,25 @@ angular.module('admin', ['ngStorage', 'ngMaterial'])
     }
 }])
 
-.directive('modalDirective', () => {
-    return {
-        restrict: 'E',
-        scope: {
-            id: '=',
-            headertitle: '=',
-            data: '=',
-            src: '='
-        },
-        templateUrl: './assets/partials/modal.html'
-    };
-})
+//.directive('modalDirective', () => {
+//    return {
+//        restrict: 'E',
+//        scope: {
+//            id: '=',
+//            headertitle: '=',
+//            data: '=',
+//            src: '='
+//        },
+//        templateUrl: './assets/partials/modal.html'
+//    };
+//})
 
 .directive('tranBtn', () => {
     return {
         restrict: 'E',
         scope: {
         },
-        templateUrl: './assets/partials/tranbtn.html'
+        templateUrl: './assets/partials/directive/tranbtn.html'
     };
 })
 

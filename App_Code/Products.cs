@@ -103,15 +103,15 @@ public class Products : System.Web.Services.WebService {
     }
 
     [WebMethod]
-    public string Get(string id) {
+    public string Get(string id, string lang) {
         try {
-            return JsonConvert.SerializeObject(GetProduct(id), Formatting.None);
+            return JsonConvert.SerializeObject(GetProduct(id, lang), Formatting.None);
         } catch(Exception e) {
             return JsonConvert.SerializeObject(e.Message, Formatting.None);
         }
     }
 
-    public NewProduct GetProduct(string id) {
+    public NewProduct GetProduct(string id, string lang) {
         NewProduct x = new NewProduct();
         string sql = string.Format("SELECT id, productGroup, title, shortDesc, longDesc, img, isActive, displayType FROM products WHERE id = '{0}'", id);
         using (var connection = new SQLiteConnection("Data Source=" + DB.GetDataBasePath(G.dataBase))) {
@@ -122,9 +122,17 @@ public class Products : System.Web.Services.WebService {
                 while (reader.Read()) {
                     x.id = G.ReadS(reader, 0);
                     x.productGroup = G.ReadS(reader, 1);
-                    x.title = G.ReadS(reader, 2);
-                    x.shortDesc = G.ReadS(reader, 3);
-                    x.longDesc = G.ReadS(reader, 4);
+                    List<Tran.NewTran> tran = T.LoadData(x.id, G.recordType.productTitle, lang);
+                    x.title = !string.IsNullOrEmpty(lang) && tran.Count > 0 ? tran[0].tran : G.ReadS(reader, 2);
+                    tran = T.LoadData(x.id, G.recordType.productShortDesc, lang);
+                    x.shortDesc = !string.IsNullOrEmpty(lang) && tran.Count > 0 ? tran[0].tran : G.ReadS(reader, 3);
+                    tran = T.LoadData(x.id, G.recordType.productLongDesc, lang);
+                    x.longDesc = !string.IsNullOrEmpty(lang) && tran.Count > 0 ? tran[0].tran : G.ReadS(reader, 4);
+
+
+                    //x.title = G.ReadS(reader, 2);
+                    //x.shortDesc = G.ReadS(reader, 3);
+                    //x.longDesc = G.ReadS(reader, 4);
                     x.img = G.ReadS(reader, 5);
                     x.isActive = G.ReadB(reader, 6);
                     x.displayType = G.ReadI(reader, 7);

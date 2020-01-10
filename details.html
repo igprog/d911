@@ -35,18 +35,16 @@
         }
     </style>
 </head>
-<body ng-app="app" ng-controller="appCtrl">
+<body ng-app="app" ng-controller="detailsCtrl">
     <navbar-directive site="config.sitename"></navbar-directive>
-    <div ng-controller="detailsCtrl">
-        <loading-directive loadingtitle="'Učitavanje...'" value="d.loading" size="5"></loading-directive>
-        <details-directive id="d.id"
-                           product="d.title"
-                           shortdesc="d.shortDesc"
-                           longdesc="d.longDesc"
-                           img="d.img"
-                           gallery="d.gallery">
-        </details-directive>
-    </div>
+    <loading-directive loadingtitle="'Učitavanje...'" value="d.loading" size="5"></loading-directive>
+    <details-directive id="d.id"
+                        product="d.title"
+                        shortdesc="d.shortDesc"
+                        longdesc="d.longDesc"
+                        img="d.img"
+                        gallery="d.gallery">
+    </details-directive>
     
     <script src="assets/js/app.js"></script>
     <!--<script type="text/javascript" src="../assets/js/vendor/jquery.floating-social-share.min.js"></script>

@@ -7,10 +7,20 @@
   "contact": "Kotakt",
   "home": "Naslovna",
   "login": "Login",
-  "any question? call us": "Any question? call us",
   "logout": "Logout",
   "company name": "Tvrtka",
   "pin": "OIB",
   "phone": "Telefon",
-  "email": "Email"
+  "email": "Email",
+  "send inquiry": "Pošaljite upit",
+  "name": "Ime",
+  "message": "Poruka",
+  "follow us": "Pratite nas na društvenim mrežama",
+  "interior design studio": "Studio za dizajn interijera",
+  "loading": "Učitavanje",
+  "message successfully sent": "Poruka usješno poslana",
+  "we will reply to you as soon as possible": "Odgovorit ćemo Vam u najskorijem roku",
+  "all rights reserved": "Sva prava pridržana",
+  "send": "Pošalji",
+  "on top": "Na vrh"
 }

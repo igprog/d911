@@ -382,9 +382,9 @@ angular.module('admin', ['ngStorage', 'ngMaterial'])
                 }
                 $scope.d.tran.productId = null;
                 $scope.d.tran.recordType = d.type;
-
+                debugger;
                 angular.forEach($scope.d.langs, function (value, key) {
-                    f.post(service, 'Get', { productId: d.data.id, recordType: d.type, lang: value.lang }).then((res) => {
+                    f.post(service, 'Get', { productId: null, recordType: d.type, lang: value.lang }).then((res) => {
                         if (res.length > 0) {
                             $scope.d.langs[key].id = res[0].id;
                             $scope.d.langs[key].tran = res[0].tran;

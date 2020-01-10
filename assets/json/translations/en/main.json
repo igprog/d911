@@ -12,5 +12,16 @@
   "company name": "Company Name",
   "pin": "OIB",
   "phone": "Phone",
-  "email": "Email"
+  "email": "Email",
+  "send inquiry": "Send inquiry",
+  "name": "Name",
+  "message": "Message",
+  "follow us": "Follow us",
+  "interior design studio": "Interior design studio",
+  "loading": "Loading",
+  "message successfully sent": "Message successfully sent",
+  "we will reply to you as soon as possible": "We will reply to you as soon as possible",
+  "all rights reserved": "All rights reserved",
+  "send": "Send",
+  "on top": "On top"
 }

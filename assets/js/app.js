@@ -89,7 +89,6 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate'])
     //}
 
     var loadProducts = () => {
-        debugger;
         $scope.d.loading = true;
         f.post('Products', 'Load', { lang: $sessionStorage.config.lang.code }).then((d) => {
             $scope.d.records = d;
@@ -114,7 +113,7 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate'])
 }])
 
 
-.controller('detailsCtrl', ['$scope', '$http', '$rootScope', 'f', function ($scope, $http, $rootScope, f) {
+.controller('detailsCtrl', ['$scope', '$http', '$rootScope', 'f', '$translate', function ($scope, $http, $rootScope, f, $translate) {
     var queryString = location.search;
     var params = queryString.split('&');
     var id = null;
@@ -138,7 +137,7 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate'])
 
 }])
 
-.controller('contactCtrl', ['$scope', '$http', '$rootScope', 'f', function ($scope, $http, $rootScope, f) {
+.controller('contactCtrl', ['$scope', '$http', '$rootScope', 'f', '$translate', function ($scope, $http, $rootScope, f, $translate) {
     var webService = 'Contact';
     $scope.loading = false;
     var init = () => {

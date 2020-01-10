@@ -14,6 +14,7 @@ public class Mail {
     public class Response {
         public bool isSent;
         public string msg;
+        public string msg1;
     }
 
     public Response SendMail(string sendTo, string subject, string body) {
@@ -30,12 +31,14 @@ public class Mail {
             smtp.Send(mail);
             Response r = new Response();
             r.isSent = true;
-            r.msg = "Poslano";
+            r.msg = "message successfully sent";
+            r.msg1 = "we will reply to you as soon as possible";
             return r;
         } catch (Exception e) {
             Response r = new Response();
             r.isSent = false;
             r.msg = e.Message;
+            r.msg1 = e.StackTrace;
             return r;
         }
     }

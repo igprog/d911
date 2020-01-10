@@ -117,8 +117,7 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate'])
     var queryString = location.search;
     var params = queryString.split('&');
     var id = null;
-    $scope.loadinf = false;
-    debugger;
+    $scope.loading = false;
     if (params.length > 0) {
         if (params[0].substring(1, 3) === 'id') {
             id = params[0].substring(4);

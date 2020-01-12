@@ -143,7 +143,7 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate'])
     var queryString = location.search;
     var params = queryString.split('&');
     var id = null;
-    var lang = $sessionStorage.lang;
+    $scope.lang = $sessionStorage.lang;
     $scope.loading = false;
     if (params.length > 0) {
         if (params[0].substring(1, 3) === 'id') {
@@ -152,9 +152,8 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate'])
         if (params.length > 1) {
             /*** lang ***/
             if (params[1].substring(0, 4) === 'lang') {
-                lang = params[1].substring(5, 7);
-                $translate.use(lang);
-                //$translatePartialLoader.addPart('main');
+                $scope.lang = params[1].substring(5, 7);
+                $translate.use($scope.lang);
             }
             /*** lang ***/
         }
@@ -163,7 +162,7 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate'])
     var get = (id) => {
         if (id == null) { return false;}
         $scope.loading = true;
-        f.post('Products', 'Get', { id: id, lang: lang }).then((d) => {
+        f.post('Products', 'Get', { id: id, lang: $scope.lang }).then((d) => {
             $scope.d = d;
             $scope.loading = false;
         });
@@ -223,7 +222,8 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate'])
     return {
         restrict: 'E',
         scope: {
-            site: '='
+            site: '=',
+            lang: '='
         },
         templateUrl: './assets/partials/directive/navbar.html'
     };

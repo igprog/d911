@@ -182,10 +182,10 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate'])
 }])
 
 .controller('contactCtrl', ['$scope', '$http', '$rootScope', 'f', '$translate', function ($scope, $http, $rootScope, f, $translate) {
-    var webService = 'Contact';
+    var service = 'Contact';
     $scope.loading = false;
     var init = () => {
-        f.post(webService, 'Init', {}).then((d) => {
+        f.post(service, 'Init', {}).then((d) => {
             $scope.d = d;
         });
     }
@@ -193,7 +193,7 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate'])
 
     $scope.send = function (d) {
         $scope.loading = true;
-        f.post(webService, 'Send', { x: d }).then((d) => {
+        f.post(service, 'Send', { x: d }).then((d) => {
             $scope.d = d;
             $scope.loading = false;
         })

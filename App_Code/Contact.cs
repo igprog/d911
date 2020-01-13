@@ -17,6 +17,7 @@ public class Contact : System.Web.Services.WebService {
     public class NewContact {
         public string name;
         public string email;
+        public string phone;
         public string msg;
         public Mail.Response response;
     }
@@ -26,6 +27,7 @@ public class Contact : System.Web.Services.WebService {
         NewContact x = new NewContact();
         x.name = null;
         x.email = null;
+        x.phone = null;
         x.msg = null;
         x.response = new Mail.Response();
         x.response.isSent = false;
@@ -39,7 +41,8 @@ public class Contact : System.Web.Services.WebService {
 <h3>Novi upit</h3>
 <p>Ime: {0}</p>
 <p>Email: {1}</p>
-<p>Poruka: {2}</p>", x.name, x.email, x.msg);
+<p>Tel: {2}</p>
+<p>Poruka: {3}</p>", x.name, x.email, x.phone, x.msg);
         Mail m = new Mail();
         x.response = m.SendMail(G.email, "Novi upit", subject);
         return JsonConvert.SerializeObject(x, Formatting.None);

@@ -62,9 +62,21 @@ footer .glyphicon {
 .footer {
     background: url("../img/banner.jpg") no-repeat center center;
     background-size: cover;
-    background-color: red;
-    opacity:0.5;
 }
+.tranparent {
+    background-color: #fff;
+    background: rgba(0, 0, 0, 0.8);
+}
+.dark-input {
+    background-color: #000;
+    color: #fff;
+}
+.bottom-left {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+}
+
 .slideanim {visibility:hidden;}
 .slide {
     animation-name: slide;
@@ -91,21 +103,6 @@ footer .glyphicon {
 100% {
     opacity: 1;
     -webkit-transform: translateY(0%);
-    }
-}
-@media screen and (max-width: 768px) {
-.col-sm-4 {
-    text-align: center;
-    margin: 25px 0;
-}
-.btn-lg {
-    width: 100%;
-    margin-bottom: 35px;
-    }
-}
-@media screen and (max-width: 480px) {
-.logo {
-    font-size: 150px;
     }
 }
 
@@ -142,20 +139,6 @@ a:hover {
 
 header {
   padding: 104px 0 100px;
-}
-
-@media (min-width: 992px) {
-  header {
-    padding: 106px 0 100px;
-  }
-}
-@media (max-width: 992px) {
-  header {
-    padding: 10px 0 100px;
-  }
-  h1 {
-    font-size:35px !important;
-  }
 }
 
 .section {
@@ -357,10 +340,76 @@ header {
   margin-left: 50px;
 }
 
+/*********** Sidenav ************/
+
+.div-wrapper {
+    position: relative;
+}
+
+.div-wrapper img {
+    position: absolute;
+    left: 20%;
+    bottom: 0;
+}
+
+.follow-img {
+    width: 50%
+}
+
+.contact-padding {
+    padding:50px 50px 20px 300px
+}
+
+@media (min-width: 992px) {
+  header {
+    padding: 106px 0 100px;
+  }
+}
+@media (max-width: 992px) {
+  header {
+    padding: 10px 0 100px;
+  }
+  h1 {
+    font-size:35px !important;
+  }
+    .follow-img {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .col-sm-4 {
+        text-align: center;
+        margin: 25px 0;
+    }
+    .btn-lg {
+        width: 100%;
+        margin-bottom: 35px;
+    }
+    .logo {
+        font-size: 150px;
+    }
+    .follow-img {
+        width: 80%;
+    }
+    .contact-padding {
+        padding: 10px 0px 20px 0px;
+    }
+
+}
+
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
   .sidenav {visibility:hidden;}
-}
-/*********** Sidenav ************/
 
+    .logo {
+        font-size: 150px;
+    }
+    .follow-img {
+        width: 80%;
+    }
+    .contact-padding {
+        padding: 10px 0px 20px 0px;
+    }
+}

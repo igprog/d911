@@ -35,11 +35,11 @@
     <script src="assets/js/vendor/ngStorage.min.js"></script>
     <script src="../assets/js/vendor/angular-translate.min.js"></script>
     <script src="../assets/js/vendor/angular-translate-loader-partial.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Open Sans', sans-serif;
-            font-size: 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
         }
         /* Make the image fully responsive */
         .carousel-inner img {
@@ -50,10 +50,18 @@
 </head>
 <body id="home" ng-app="app" ng-controller="appCtrl" data-spy="scroll" data-target=".navbar" data-offset="60" ng-cloak>
     <nav class="navbar navbar-expand-lg fixed-top">
-            <a href="index.html" title="{{config.sitename}}">
-                <img src="../assets/img/logo.png" style="height:50px" alt="{{config.sitename}}" />
-                <!--<label style="font-size:20px; color:#fff">DIZAJN 911</label>-->
-            </a>
+        <a href="index.html" title="{{config.sitename}}">
+            <img src="../assets/img/logo.png" style="height:50px" alt="{{config.sitename}}" />
+            <!--<label style="font-size:20px; color:#fff">DIZAJN 911</label>-->
+        </a>
+        <div class="dropdown pl-5">
+            <label class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="assets/img/lang/{{lang}}.svg" alt="{{lang}}" /> <!--{{config.lang.title | translate}}-->
+            </label>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="" ng-repeat="x in config.languages" ng-click="setLang(x)"><img src="assets/img/lang/{{x.code}}.svg" alt="{{x.code}}" /> {{x.title | translate}}</a>
+            </div>
+        </div>
         <button class="navbar-toggler" type="button" aria-label="Toggle navigation" onclick="openNav()">
             <span class="navbar-toggler-icon">
                 <i class="fas fa-bars" style="color:#fff; font-size:28px;"></i>
@@ -65,7 +73,7 @@
                     <a class="nav-link" href="#section1" title="usluge">{{'services' | translate}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#section2" title="cijene">{{'portfolio' | translate}}</a>
+                    <a class="nav-link" href="#section2" title="projects">{{'projects' | translate}}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#section3" title="o nama">{{'about us' | translate}}</a>
@@ -74,14 +82,6 @@
                     <a class="nav-link" href="#section4" title="kontakt">{{'contact' | translate}}</a>
                 </li>
             </ul>
-            <div class="dropdown pl-5">
-                <label class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="assets/img/lang/{{lang}}.svg" alt="{{lang}}" /> <!--{{config.lang.title | translate}}-->
-                </label>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="" ng-repeat="x in config.languages" ng-click="setLang(x)"><img src="assets/img/lang/{{x.code}}.svg" alt="{{x.code}}" /> {{x.title | translate}}</a>
-                </div>
-            </div>
         </div>
     </nav>
 
@@ -91,10 +91,10 @@
         <!--<div class="mt-5">
             <a>{{'menu' | translate}}</a><a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         </div>-->
-        <a href="#section1" title="usluge">{{'services' | translate}}</a>
-        <a href="#section2" title="cijene">{{'portfolio' | translate}}</a>
-        <a href="#section3" title="o nama">{{'about us' | translate}}</a>
-        <a href="#section4" title="kontakt">{{'contact' | translate}}</a>
+        <a href="#section1" title="{{'services' | translate}}">{{'services' | translate}}</a>
+        <a href="#section2" title="{{'projects' | translate}}">{{'projects' | translate}}</a>
+        <a href="#section3" title="{{'about us' | translate}}">{{'about us' | translate}}</a>
+        <a href="#section4" title="{{'contact' | translate}}">{{'contact' | translate}}</a>
     </div>
 
 
@@ -163,15 +163,15 @@
     <loading-directive loadingtitle="'Učitavanje...'" value="d.loading" size="5"></loading-directive>
 
     <div class="text-center pt-3" onclick="closeNav()">
-        <h1>Dizajn 911</h1>
-        <h2>{{'interior design studio' | translate}}</h2>
-        <div id="section1" style="margin-top:40px" class="container section slideanim">
+        <!--<h1>Dizajn 911</h1>
+        <h2>{{'interior design studio' | translate}}</h2>-->
+        <div id="section1" style="margin-top:40px" class="container section slideanim p-3">
             <h2 class="text-primary text-uppercase">{{'services' | translate}}</h2>
-            <hr />
+            <!--<hr />-->
             <!--<div>
                 <p>{{info.services}}</p>
             </div>-->
-            <div class="row">
+            <div class="row mt-5">
                 <div class="col" ng-repeat="x in d.services">
                     <img src="assets/img/icon/{{x.icon}}" style="width:100px" />
                     <h2 class="mt-2">
@@ -180,8 +180,8 @@
                 </div>
             </div>
         </div>
-        <div id="section2" style="margin-top:40px" class="slideanim">
-            <h2 class="text-primary text-uppercase">{{'portfolio' | translate}}</h2>
+        <div id="section2" style="margin-top:40px" class="slideanim p-3">
+            <h2 class="text-primary text-uppercase">{{'projects' | translate}}</h2>
             <hr />
             <div class="row mt-2 p-3 text-center" style="overflow:hidden">
                 <div class="col-lg-4 p-2" ng-repeat="x in d.records track by $index">
@@ -197,7 +197,7 @@
             </div>
         </div>
 
-        <div ng-if="info.about" id="section3" class="container section slideanim text-left">
+        <div ng-if="info.about" id="section3" class="container section slideanim text-left p-3">
             <h2 class="text-primary text-uppercase">{{'about us' | translate}}</h2>
             <hr />
             <div>
@@ -208,12 +208,12 @@
             </div>-->
         </div>
 
-        <div class="container slideanim text-left">
+        <div class="container slideanim text-left pt-5">
             <div class="row">
-                <div class="col">
-                    <img src="./assets/img/smartphone.png" />
+                <div class="col text-right pr-5 div-wrapper">
+                    <img src="./assets/img/smartphone.png" class="img-fluid follow-img" />
                 </div>
-                <div class="col" style="padding:100px 0 100px 0">
+                <div class="col" style="padding:100px 20px 100px 20px">
                     <h2 class="text-primary text-uppercase">{{'follow us' | translate}}</h2>
                     <p>{{'follow_us_desc' | translate}}.</p>
                     <div class="pt-3">
@@ -232,24 +232,11 @@
 
     </div>
     
-    <div id="section4" class="container-fluid section text-white p-5 slideanim footer" onclick="closeNav()">
-        <div ng-controller="contactCtrl" class="row">
-                <div class="col-lg-3 p-3">
-                    <iframe ng-if="config.showgooglemap===true" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22421.808747663108!2d14.336609035584376!3d45.374520359290536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4764a60af9f92e03%3A0xebf4091255fc80a8!2sKastav!5e0!3m2!1shr!2shr!4v1575537226935!5m2!1shr!2shr" frameborder="0" style="border:0; width:100%; height:100%" allowfullscreen=""></iframe>
-                </div>
-                <div class="col-lg-4 p-3">
-                    <h2 class="text-white text-uppercase">{{'contact' | translate}}</h2>
-                    <div>
-                        <label>{{info.company}}</label>
-                        <p ng-if="info.pin" class="text-uppercase">{{pin | translate}}: {{info.pin}}</p>
-                        <p ng-if="info.address"><i class="fa fa-map-marker-alt"></i> {{info.address}}</p>
-                        <p><a href="tel:{{info.phone}}" class="text-white" title="{{'phone' | translate}}"><i class="fa fa-phone"></i> {{info.phone}}</a></p>
-                        <p><a href="mailto:{{info.email}}" class="text-white" title="email"><i class="far fa-envelope"></i> {{info.email}}</a></p>
-                        <p><a href="{{config.url}}" class="text-white" title="url"><i class="fa fa-globe"></i> {{config.domain}}</a></p>
-                    </div>
-                </div>
-                <div class="col-lg-5 p-3">
-                    <div ng-if="loading" class="text-center">
+    <div id="section4" class="footer" onclick="closeNav()">
+        <div class="container-fluid section text-white p-5 slideanim tranparent">
+            <div ng-controller="contactCtrl" class="row">
+                <div class="col-lg-6 contact-padding">
+                    <div ng-if="loading" class="text-left">
                         <i class="fa fa-spinner fa-pulse fa-5x fa-fw text-white"></i>
                     </div>
                     <div ng-if="!loading">
@@ -257,14 +244,17 @@
                             <h3>{{'send inquiry' | translate}}</h3>
                             <div>
                                 <div class="row">
-                                    <div class="col-sm-6 form-group">
-                                        <input ng-model="d.name" class="form-control" name="name" placeholder="{{'name' | translate}}" type="text" required>
+                                    <div class="col-sm-12 form-group">
+                                        <input ng-model="d.name" class="form-control dark-input" name="name" placeholder="{{'name' | translate}}" type="text" required>
                                     </div>
-                                    <div class="col-sm-6 form-group">
-                                        <input ng-model="d.email" class="form-control" name="email" placeholder="Email" type="email" required>
+                                    <div class="col-sm-12 form-group">
+                                        <input ng-model="d.email" class="form-control dark-input" name="email" placeholder="{{'email' | translate}}" type="email" required>
+                                    </div>
+                                    <div class="col-sm-12 form-group">
+                                        <input ng-model="d.phone" class="form-control dark-input" name="phone" placeholder="{{'phone' | translate}}" type="text" required>
                                     </div>
                                 </div>
-                                <textarea ng-model="d.msg" class="form-control" name="comments" placeholder="{{'message' | translate}}" rows="5"></textarea><br>
+                                <textarea ng-model="d.msg" class="form-control dark-input" name="comments" placeholder="{{'message' | translate}}" rows="5"></textarea><br>
                                 <div class="row">
                                     <div class="col-sm-12 form-group">
                                         <button class="btn btn-outline-light pull-right" ng-click="send(d)"><i class="fa fa-paper-plane"></i> {{'send' | translate}}</button>
@@ -278,14 +268,30 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-2 p-3">
+                    <iframe ng-if="config.showgooglemap===true" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22421.808747663108!2d14.336609035584376!3d45.374520359290536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4764a60af9f92e03%3A0xebf4091255fc80a8!2sKastav!5e0!3m2!1shr!2shr!4v1575537226935!5m2!1shr!2shr" frameborder="0" style="border:0; width:100%; height:100%" allowfullscreen=""></iframe>
+                </div>
+                <div class="col-lg-4" style="margin-top:80px">
+                    <!--<h2 class="text-white text-uppercase">{{'contact' | translate}}</h2>-->
+                    <div>
+                        <img src="../assets/img/logo.png" class="mb-3" style="height:50px" alt="{{config.sitename}}" />
+                        <!--<label>{{info.company}}</label>-->
+                        <p ng-if="info.pin" class="text-uppercase">{{pin | translate}}: {{info.pin}}</p>
+                        <p ng-if="info.address"><i class="fa fa-map-marker-alt"></i> {{info.address}}</p>
+                        <p><a href="tel:{{info.phone}}" class="text-white" title="{{'phone' | translate}}"><img src="./assets/img/icon/phone.png" style="width:50px" /> {{info.phone}}</a></p>
+                        <p><a href="mailto:{{info.email}}" class="text-white" title="email"><img src="./assets/img/icon/mail.png" style="width:50px" /> {{info.email}}</a></p>
+                        <!--<p><a href="{{config.url}}" class="text-white" title="url"><i class="fa fa-globe"></i> {{config.domain}}</a></p>-->
+                    </div>
+                </div>
             </div>
-        <div class="fixed text-right d-none d-sm-block" style="margin:0 20px 80px 0">
-            <a href="#home" title="{{'on top' | translate}}" class="color-secondary">
-                <span class="fa fa-chevron-up fa-3x"></span>
-            </a>
-        </div>
-        <div class="text-center mt-5">
-            <p class="small text-muted">Copyright © {{year}} <span class="text-uppercase">{{config.sitename}}</span> | {{'all rights reserved' | translate}} | Made with &#9829; by <a href="https://www.igprog.hr" title="igprog.hr" class="text-muted">IG PROG</a></p>
+            <div class="fixed text-right d-none d-sm-block" style="margin:0 20px 80px 0">
+                <a href="#home" title="{{'on top' | translate}}" class="color-secondary">
+                    <span class="fa fa-chevron-up fa-3x"></span>
+                </a>
+            </div>
+            <div class="text-center mt-5">
+                <p class="small text-muted">Copyright © {{year}} <span class="text-uppercase">{{config.sitename}}</span> | {{'all rights reserved' | translate}} | Made with &#9829; by <a href="https://www.igprog.hr" title="igprog.hr" class="text-muted">IG PROG</a></p>
+            </div>
         </div>
     </div>
     

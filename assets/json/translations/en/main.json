@@ -3,6 +3,7 @@
   "english": "English",
   "services": "Services",
   "portfolio": "Portfolio",
+  "projects": "Projects",
   "about us": "About Us",
   "contact": "Contact",
   "home": "Home",
@@ -26,5 +27,10 @@
   "on top": "On top",
   "follow_us_desc": "To find out all news and events on time",
   "location": "Location",
-  "area": "Area"
+  "area": "Area",
+  "negotiation": "Negotiation",
+  "interior design": "Interior design",
+  "space organization": "Space organization",
+  "online interior design": "Online interior design",
+  "3d photorealistic visualizations": "3d photorealistic visualizations"
 }

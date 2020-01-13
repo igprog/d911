@@ -63,7 +63,8 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate'])
         loading: false,
         records: [],
         info: null,
-        mainGallery: null
+        mainGallery: null,
+        services: []
     }
     $scope.d = data;
 
@@ -88,6 +89,7 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate'])
               /*** lang ***/
               loadProducts();
               loadInfo();
+              loadServices();
           });
     };
     getConfig();
@@ -109,6 +111,7 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate'])
         window.location.href = window.location.origin + '?lang=' + x.code;
         loadProducts();
         loadInfo();
+        loadServices();
     };
     //if (angular.isDefined($sessionStorage.config)) {
     //    $scope.setLang($sessionStorage.lang);
@@ -135,6 +138,13 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate'])
         });
     }
     loadMainGallery();
+
+    var loadServices = () => {
+        debugger;
+        f.post('Options', 'Load', { type: 'services' }).then((d) => {
+            $scope.d.services = d;
+        });
+    }
 
 }])
 
@@ -212,7 +222,8 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate'])
             longdesc: '=',
             img: '=',
             price: '=',
-            gallery: '='
+            gallery: '=',
+            options: '='
         },
         templateUrl: './assets/partials/directive/details.html'
     };

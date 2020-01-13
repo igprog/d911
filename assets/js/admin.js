@@ -430,6 +430,52 @@ angular.module('admin', ['ngStorage', 'ngMaterial'])
 
 }])
 
+.controller('optionsCtrl', ['$scope', '$http', 'f', ($scope, $http, f) => {
+    var service = 'Options';
+    var data = {
+        loading: false,
+        records: []
+    }
+    $scope.d = data;
+
+    var add = () => {
+        $scope.d.records.push({});
+    }
+
+    var save = (x) => {
+        f.post(service, 'Save', { x: x }).then((d) => {
+            $scope.d.records = d;
+        });
+    }
+
+    var load = (type) => {
+        $scope.d.loading = true;
+        f.post(service, 'Load', { type: type }).then((d) => {
+            $scope.d.records = d;
+            $scope.d.loading = false;
+        });
+    }
+    load(null);
+
+    var remove = (x, idx) => {
+        if (confirm('Briši opciju?')) {
+            x.splice(idx, 1);
+        }
+    }
+
+    $scope.f = {
+        add: () => {
+            return add();
+        },
+        save: (x) => {
+            return save(x)
+        },
+        remove: (x, idx) => {
+            return remove(x, idx)
+        }
+    }
+
+}])
 
 .controller('uploadCtrl', ['$scope', '$http', 'f', ($scope, $http, f) => {
     var service = 'Info';

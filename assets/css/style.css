@@ -59,6 +59,12 @@ footer .glyphicon {
     margin-bottom: 20px;
     color:dodgerblue;
 }
+.footer {
+    background: url("../img/banner.jpg") no-repeat center center;
+    background-size: cover;
+    background-color: red;
+    opacity:0.5;
+}
 .slideanim {visibility:hidden;}
 .slide {
     animation-name: slide;
@@ -356,7 +362,5 @@ header {
   .sidenav a {font-size: 18px;}
   .sidenav {visibility:hidden;}
 }
-
-
 /*********** Sidenav ************/
 

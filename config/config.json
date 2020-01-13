@@ -3,7 +3,7 @@
   "url": "https://www.dizajn911.com",
   "domain": "dizajn911.com",
   "sitename": "Dizajn 911",
-  "showcarddesc": true,
+  "showcarddesc": false,
   "showgooglemap": false,
   "showlang": true,
   "languages": [

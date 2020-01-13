@@ -23,6 +23,7 @@ public class Products : System.Web.Services.WebService {
     Global G = new Global();
     DataBase DB = new DataBase();
     Tran T = new Tran();
+    Options O = new Options();
 
     public Products () {
     }
@@ -37,10 +38,18 @@ public class Products : System.Web.Services.WebService {
         public bool isActive;
         public int displayType;
         public string[] gallery;
+        public List<Options.NewOption> options;
+        public List<ProductOption> productOptions;
     }
 
     public class City {
         public string city;
+    }
+
+    public class ProductOption {
+        public string code;
+        public string title;
+        public string val;
     }
 
     [WebMethod]
@@ -55,6 +64,8 @@ public class Products : System.Web.Services.WebService {
             x.img = null;
             x.isActive = true;
             x.displayType = 0;
+            x.options = new List<Options.NewOption>();
+            x.productOptions = new List<ProductOption>();
             return JsonConvert.SerializeObject(x, Formatting.None);    
         } catch (Exception e) {
             return JsonConvert.SerializeObject(e.Message, Formatting.None);
@@ -72,8 +83,9 @@ public class Products : System.Web.Services.WebService {
 
     public List<NewProduct> LoadData(string lang) {
         DB.CreateDataBase(G.db.products);
-        string sql = "SELECT id, productGroup, title, shortDesc, longDesc, img, isActive, displayType FROM products";
+        string sql = "SELECT id, productGroup, title, shortDesc, longDesc, img, isActive, displayType, productOptions FROM products";
         List<NewProduct> xx = new List<NewProduct>();
+        List<Options.NewOption> options = O.GetOptions(G.optionType.product);
         using (var connection = new SQLiteConnection("Data Source=" + DB.GetDataBasePath(G.dataBase))) {
             connection.Open();
             using (var command = new SQLiteCommand(sql, connection)) {
@@ -92,6 +104,10 @@ public class Products : System.Web.Services.WebService {
                         x.img = G.ReadS(reader, 5);
                         x.isActive = G.ReadB(reader, 6);
                         x.displayType = G.ReadI(reader, 7);
+                        x.options = options;
+                        x.productOptions = string.IsNullOrEmpty(G.ReadS(reader, 8))
+                                        ? InitProductOptions(x.options)
+                                        : JsonConvert.DeserializeObject<List<ProductOption>>(G.ReadS(reader, 8)).ToList();
                         x.gallery = GetGallery(x.id);
                         xx.Add(x);
                     }
@@ -113,7 +129,8 @@ public class Products : System.Web.Services.WebService {
 
     public NewProduct GetProduct(string id, string lang) {
         NewProduct x = new NewProduct();
-        string sql = string.Format("SELECT id, productGroup, title, shortDesc, longDesc, img, isActive, displayType FROM products WHERE id = '{0}'", id);
+        List<Options.NewOption> options = O.GetOptions(G.optionType.product);
+        string sql = string.Format("SELECT id, productGroup, title, shortDesc, longDesc, img, isActive, displayType, productOptions FROM products WHERE id = '{0}'", id);
         using (var connection = new SQLiteConnection("Data Source=" + DB.GetDataBasePath(G.dataBase))) {
             connection.Open();
             using (var command = new SQLiteCommand(sql, connection)) {
@@ -128,14 +145,13 @@ public class Products : System.Web.Services.WebService {
                     x.shortDesc = !string.IsNullOrEmpty(lang) && tran.Count > 0 ? tran[0].tran : G.ReadS(reader, 3);
                     tran = T.LoadData(x.id, G.recordType.productLongDesc, lang);
                     x.longDesc = !string.IsNullOrEmpty(lang) && tran.Count > 0 ? tran[0].tran : G.ReadS(reader, 4);
-
-
-                    //x.title = G.ReadS(reader, 2);
-                    //x.shortDesc = G.ReadS(reader, 3);
-                    //x.longDesc = G.ReadS(reader, 4);
                     x.img = G.ReadS(reader, 5);
                     x.isActive = G.ReadB(reader, 6);
                     x.displayType = G.ReadI(reader, 7);
+                    x.options = options;
+                    x.productOptions = string.IsNullOrEmpty(G.ReadS(reader, 8))
+                                    ? InitProductOptions(x.options)
+                                    : JsonConvert.DeserializeObject<List<ProductOption>>(G.ReadS(reader, 8)).ToList();
                     x.gallery = GetGallery(x.id);
                 }
             }
@@ -151,11 +167,11 @@ public class Products : System.Web.Services.WebService {
             string sql = null;
             if (string.IsNullOrEmpty(x.id)) {
                 x.id = Guid.NewGuid().ToString();
-                sql = string.Format(@"INSERT INTO products VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}')"
-                                    , x.id, x.productGroup, x.title, x.shortDesc, x.longDesc, x.img, x.isActive, x.displayType);
+                sql = string.Format(@"INSERT INTO products VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}')"
+                                    , x.id, x.productGroup, x.title, x.shortDesc, x.longDesc, x.img, x.isActive, x.displayType, JsonConvert.SerializeObject(x.productOptions, Formatting.None));
             } else {
-                sql = string.Format(@"UPDATE products SET productGroup = '{1}', title = '{2}', shortDesc = '{3}', longDesc = '{4}', img = '{5}', isActive = '{6}', displayType = '{7}'  WHERE id = '{0}'"
-                                    , x.id, x.productGroup, x.title, x.shortDesc, x.longDesc, x.img, x.isActive, x.displayType);
+                sql = string.Format(@"UPDATE products SET productGroup = '{1}', title = '{2}', shortDesc = '{3}', longDesc = '{4}', img = '{5}', isActive = '{6}', displayType = '{7}', productOptions = '{8}'  WHERE id = '{0}'"
+                                    , x.id, x.productGroup, x.title, x.shortDesc, x.longDesc, x.img, x.isActive, x.displayType, JsonConvert.SerializeObject(x.productOptions, Formatting.None));
             }
             using (var connection = new SQLiteConnection("Data Source=" + DB.GetDataBasePath(G.dataBase))) {
                 connection.Open();
@@ -250,6 +266,19 @@ public class Products : System.Web.Services.WebService {
         if (Directory.Exists(path)) {
             string[] ss = Directory.GetFiles(path);
             xx = ss.Select(a => Path.GetFileName(a)).ToArray();
+        }
+        return xx;
+    }
+
+    private List<ProductOption> InitProductOptions(List<Options.NewOption> options) {
+        ProductOption x = new ProductOption();
+        List<ProductOption> xx = new List<ProductOption>();
+        foreach (Options.NewOption o in options) {
+            x = new ProductOption();
+            x.code = o.code;
+            x.title = o.title; // T.TranJson(o.title, "hr");
+            x.val = null;
+            xx.Add(x);
         }
         return xx;
     }

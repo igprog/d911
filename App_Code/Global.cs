@@ -30,6 +30,7 @@ namespace Igprog {
         public string dataBase = ConfigurationManager.AppSettings["dataBase"];
 
         public RecordType recordType = new RecordType();
+        public OptionType optionType = new OptionType();
 
         public class DB {
             public string productGroups = "productGroups";
@@ -43,6 +44,11 @@ namespace Igprog {
             public string productTitle = "productTitle";
             public string productShortDesc = "productShortDesc";
             public string productLongDesc = "productLongDesc";
+        }
+
+        public class OptionType {
+            public string services = "services";
+            public string product = "product";
         }
 
         public string ReadS(SQLiteDataReader reader, int i) {

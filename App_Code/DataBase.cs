@@ -29,7 +29,8 @@ public class DataBase {
                     longDesc TEXT,
                     img NVARCHAR(50),
                     isActive NVARCHAR(50),
-                    displayType INTEGER)";
+                    displayType INTEGER,
+                    productOptions TEXT)";
         CreateTable(path, sql);
     }
 

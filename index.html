@@ -51,17 +51,9 @@
 <body id="home" ng-app="app" ng-controller="appCtrl" data-spy="scroll" data-target=".navbar" data-offset="60" ng-cloak>
     <nav class="navbar navbar-expand-lg fixed-top">
             <a href="index.html" title="{{config.sitename}}">
-                <!--<img src="../assets/img/logo.png" style="height:60px" alt="{{config.sitename}}" />-->
-                <label style="font-size:20px; color:#fff">DIZAJN 911</label>
+                <img src="../assets/img/logo.png" style="height:50px" alt="{{config.sitename}}" />
+                <!--<label style="font-size:20px; color:#fff">DIZAJN 911</label>-->
             </a>
-        <div class="dropdown pl-5">
-            <label class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="assets/img/{{lang}}.svg" alt="{{lang}}" /> <!--{{config.lang.title | translate}}-->
-            </label>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="" ng-repeat="x in config.languages" ng-click="setLang(x)"><img src="assets/img/{{x.code}}.svg" alt="{{x.code}}" /> {{x.title | translate}}</a>
-            </div>
-        </div>
         <button class="navbar-toggler" type="button" aria-label="Toggle navigation" onclick="openNav()">
             <span class="navbar-toggler-icon">
                 <i class="fas fa-bars" style="color:#fff; font-size:28px;"></i>
@@ -82,6 +74,14 @@
                     <a class="nav-link" href="#section4" title="kontakt">{{'contact' | translate}}</a>
                 </li>
             </ul>
+            <div class="dropdown pl-5">
+                <label class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="assets/img/lang/{{lang}}.svg" alt="{{lang}}" /> <!--{{config.lang.title | translate}}-->
+                </label>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="" ng-repeat="x in config.languages" ng-click="setLang(x)"><img src="assets/img/lang/{{x.code}}.svg" alt="{{x.code}}" /> {{x.title | translate}}</a>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -162,18 +162,26 @@
 
     <loading-directive loadingtitle="'Učitavanje...'" value="d.loading" size="5"></loading-directive>
 
-    <div class="text-center p-3" onclick="closeNav()">
+    <div class="text-center pt-3" onclick="closeNav()">
         <h1>Dizajn 911</h1>
         <h2>{{'interior design studio' | translate}}</h2>
         <div id="section1" style="margin-top:40px" class="container section slideanim">
             <h2 class="text-primary text-uppercase">{{'services' | translate}}</h2>
             <hr />
-            <div>
+            <!--<div>
                 <p>{{info.services}}</p>
+            </div>-->
+            <div class="row">
+                <div class="col" ng-repeat="x in d.services">
+                    <img src="assets/img/icon/{{x.icon}}" style="width:100px" />
+                    <h2 class="mt-2">
+                        {{x.title | translate}}
+                    </h2>
+                </div>
             </div>
         </div>
         <div id="section2" style="margin-top:40px" class="slideanim">
-            <h2 class="text-primary">PORTFOLIO</h2>
+            <h2 class="text-primary text-uppercase">{{'portfolio' | translate}}</h2>
             <hr />
             <div class="row mt-2 p-3 text-center" style="overflow:hidden">
                 <div class="col-lg-4 p-2" ng-repeat="x in d.records track by $index">
@@ -189,8 +197,8 @@
             </div>
         </div>
 
-        <div ng-if="info.about" id="section3" class="container section slideanim">
-            <h2 class="text-primary">{{'about us' | translate}}</h2>
+        <div ng-if="info.about" id="section3" class="container section slideanim text-left">
+            <h2 class="text-primary text-uppercase">{{'about us' | translate}}</h2>
             <hr />
             <div>
                 <p>{{info.about}}</p>
@@ -200,18 +208,31 @@
             </div>-->
         </div>
 
-        <div class="container section slideanim">
-            <h2 class="text-primary text-uppercase">{{'follow us' | translate}}</h2>
+        <div class="container slideanim text-left">
+            <div class="row">
+                <div class="col">
+                    <img src="./assets/img/smartphone.png" />
+                </div>
+                <div class="col" style="padding:100px 0 100px 0">
+                    <h2 class="text-primary text-uppercase">{{'follow us' | translate}}</h2>
+                    <p>{{'follow_us_desc' | translate}}.</p>
+                    <div class="pt-3">
+                        <a href="{{info.social.facebook}}" target="_blank" title="facebook"><img src="./assets/img/icon/face.png" style="width:50px" /></a>
+                        <a href="{{info.social.instagram}}" target="_blank" title="instagram"><img src="./assets/img/icon/instagram.png" style="width:50px" /></a>
+                    </div>
+                </div>
+            </div>
+            <!--<h2 class="text-primary text-uppercase">{{'follow us' | translate}}</h2>
             <hr />
             <div>
                 <a href="{{info.social.facebook}}" target="_blank" class="btn btn-primary btn-social" title="facebook"><i class="fab fa-facebook-f"></i></a>
                 <a href="{{info.social.instagram}}" target="_blank" class="btn btn-primary btn-social" title="instagram"><i class="fab fa-instagram"></i></a>
-            </div>
+            </div>-->
         </div>
 
     </div>
     
-    <div id="section4" class="container-fluid section text-white p-5 slideanim bg-primary" onclick="closeNav()">
+    <div id="section4" class="container-fluid section text-white p-5 slideanim footer" onclick="closeNav()">
         <div ng-controller="contactCtrl" class="row">
                 <div class="col-lg-3 p-3">
                     <iframe ng-if="config.showgooglemap===true" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22421.808747663108!2d14.336609035584376!3d45.374520359290536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4764a60af9f92e03%3A0xebf4091255fc80a8!2sKastav!5e0!3m2!1shr!2shr!4v1575537226935!5m2!1shr!2shr" frameborder="0" style="border:0; width:100%; height:100%" allowfullscreen=""></iframe>
@@ -268,6 +289,7 @@
         </div>
     </div>
     
+
     <script src="assets/js/app.js"></script>
 
     <script>

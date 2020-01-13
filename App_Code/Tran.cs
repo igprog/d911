@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.IO;
 using System.Data.SQLite;
+using System.Text.RegularExpressions;
 using Igprog;
 
 /// <summary>
@@ -118,5 +119,40 @@ public class Tran : System.Web.Services.WebService {
             return JsonConvert.SerializeObject(e.Message, Formatting.None);
         }
     }
+
+
+    #region JSON translate
+    public string TranJson(string title, string lang) {
+            try {
+                string path = string.Format("~/assets/json/translations/{0}/main.json", lang); ;
+                string path1 = HttpContext.Current.Server.MapPath(path);
+                string[] ss = Translations(lang);
+                if (ss!=null){
+                    foreach (string s in ss) {
+                        string[] _s = s.Split(':');
+                        if (_s.Count() == 2) {
+                            if (_s[0].Replace("\"", "").Replace("\r", "").Replace("\n", "").Replace("{\r\n", "").Replace("{ ", "").Trim().ToLower().ToLower().ToString() == title.ToLower()) {
+                                title = s.Split(':')[1].Replace("\"", "").Replace("\r\n}", "").Trim().ToString();
+                            }
+                        }
+                    }
+                    return title;
+                } else {
+                    return title;
+                }
+            } catch (Exception e) { return title; }
+        }
+
+        public string[] Translations(string lang) {
+            string[] ss = null;
+            string path = string.Format("~/assets/json/translations/{0}/main.json", lang);
+            string path1 = HttpContext.Current.Server.MapPath(path);
+            if (File.Exists(HttpContext.Current.Server.MapPath(path))) {
+                string json = File.ReadAllText(HttpContext.Current.Server.MapPath(path));
+                ss = Regex.Split(json, ",\r\n");
+            }
+            return ss;
+        }
+    #endregion JSON translate
 
 }

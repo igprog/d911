@@ -25,6 +25,7 @@ public class Options : System.Web.Services.WebService {
         public string code;
         public string title;
         public string desc;
+        public string unit;
         public string icon;
         public string favicon;
         public string type;

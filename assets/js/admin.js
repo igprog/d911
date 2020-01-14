@@ -2,8 +2,16 @@
 app.js
 (c) 2019 IG PROG, www.igprog.hr
 */
-angular.module('admin', ['ngStorage', 'ngMaterial'])
-.config(['$httpProvider', ($httpProvider) => {
+angular.module('admin', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
+.config(['$httpProvider', '$translateProvider', '$translatePartialLoaderProvider', ($httpProvider, $translateProvider, $translatePartialLoaderProvider) => {
+
+    $translateProvider.useLoader('$translatePartialLoader', {
+        urlTemplate: './assets/json/translations/{lang}/{part}.json'
+    });
+    $translateProvider.preferredLanguage('hr');
+    $translatePartialLoaderProvider.addPart('main');
+    $translateProvider.useSanitizeValueStrategy('escape');
+
     //*******************disable catche**********************
     if (!$httpProvider.defaults.headers.get) {
         $httpProvider.defaults.headers.get = {};
@@ -32,7 +40,7 @@ angular.module('admin', ['ngStorage', 'ngMaterial'])
     }
 }])
 
-.controller('adminCtrl', ['$scope', '$http', 'f', '$sessionStorage', ($scope, $http, f, $sessionStorage) => {
+.controller('adminCtrl', ['$scope', '$http', 'f', '$sessionStorage', '$translate', ($scope, $http, f, $sessionStorage, $translate) => {
     var isLogin = $sessionStorage.islogin !== undefined ? $sessionStorage.islogin : false;
     var service = 'Admin';
     var data = {

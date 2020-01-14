@@ -100,7 +100,7 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate'])
     //    //reloadPage();
     //}
 
-    $scope.year = (new Date).getFullYear();
+    //$scope.year = (new Date).getFullYear();
 
     $scope.setLang = function (x) {
         $rootScope.config.lang = x;
@@ -269,6 +269,20 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate'])
         templateUrl: './assets/partials/directive/loading.html'
     };
 })
+
+.directive('footerDirective', () => {
+    return {
+        restrict: 'E',
+        scope: {
+            sitename: '='
+        },
+        templateUrl: './assets/partials/directive/footer.html',
+        controller: 'footerCtrl'
+    };
+})
+.controller('footerCtrl', ['$scope', '$translate', ($scope, $translate) => {
+    $scope.year = (new Date).getFullYear();
+}])
 
 .directive('allowOnlyNumbers', function () {
     return {

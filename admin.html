@@ -20,6 +20,8 @@
     <!--<script src="assets/js/vendor/aui-min.js"></script>
     <script src="assets/js/vendor/moment.js"></script>
     <script src="assets/js/vendor/ui-scheduler-event-recorder.js"></script>-->
+    <script src="../assets/js/vendor/angular-translate.min.js"></script>
+    <script src="../assets/js/vendor/angular-translate-loader-partial.min.js"></script>
     <script src="assets/js/vendor/ngStorage.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Encode Sans Expanded' rel='stylesheet'>
     <style>
@@ -32,8 +34,8 @@
 <body id="home" ng-app="admin" ng-controller="adminCtrl" data-spy="scroll" data-target=".navbar" data-offset="60" ng-cloak>
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <a href="index.html" target="_blank" title="{{config.sitename}}">
-            <!--<img src="../assets/img/logo.png" style="height:60px" alt="{{config.sitename}}" />-->
-            <label class="text-primary font-beauty" style="font-size:20px">DIZAJN 911</label>
+            <img src="../assets/img/logo.png" style="height:50px" alt="{{config.sitename}}" />
+            <!--<label class="text-primary font-beauty" style="font-size:20px">DIZAJN 911</label>-->
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon">
@@ -269,6 +271,7 @@
                                     <th style="width:200px">Kod</th>
                                     <th style="min-width:200px">Naziv (EN)</th>
                                     <th style="min-width:200px">Opis (EN)</th>
+                                    <th style="min-width:100px">Jedinica</th>
                                     <th style="width:200px">Ikona</th>
                                     <th style="width:200px">Fav icon</th>
                                     <th style="min-width:100px">Tip</th>
@@ -279,6 +282,7 @@
                                     <td><input ng-model="x.code" type="text" class="form-control" /></td>
                                     <td><input ng-model="x.title" type="text" class="form-control" /></td>
                                     <td><input ng-model="x.desc" type="text" class="form-control" /></td>
+                                    <td><input ng-model="x.unit" type="text" class="form-control" /></td>
                                     <td>
                                         <div class="input-group">
                                             <input ng-model="x.icon" type="text" class="form-control" />
@@ -339,11 +343,11 @@
                                     </select>
                                 </div>
                                 <!--<div class="form-group">
-                        <label>Pozicija na stranici:</label>
-                        <select ng-model="x.displayType" class="form-control">
-                            <option value="0" ng-selected="x.displayType===0">Portfolio</option>
-                        </select>
-                    </div>-->
+                                    <label>Pozicija na stranici:</label>
+                                    <select ng-model="x.displayType" class="form-control">
+                                        <option value="0" ng-selected="x.displayType===0">Portfolio</option>
+                                    </select>
+                                </div>-->
                                 <div class="form-group">
                                     <label>Naziv:</label>
                                     <input ng-model="x.title" type="text" class="form-control" maxlength="30">
@@ -360,9 +364,9 @@
                                     <tran-btn ng-click="f.openTranPopup(x, 'productLongDesc')"></tran-btn>
                                 </div>
                                 <label>Opcije:</label>
-                                <hr />
+                                <hr style="margin-top:0" />
                                 <div class="form-group" ng-repeat="y in x.productOptions">
-                                    <label>{{y.title}}:</label>
+                                    <label>{{y.title | translate}} <span>{{y.unit}}</span>:</label>
                                     <input ng-model="y.val" type="text" class="form-control" maxlength="200">
                                 </div>
                                 <div class="text-right">
@@ -372,7 +376,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div ng-if="x.id">
-                                <label>Galerija</label>
+                                <label>Galerija:</label>
                                 <form id="formUpload_{{x.id}}" ng-submit="f.upload(x, $index)" enctype="multipart/form-data" method="post">
                                     <input id="imgId" name="imgId" ng-model="x.id" type="text" hidden="hidden">
                                     <div class="row">

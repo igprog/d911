@@ -1,6 +1,6 @@
 ﻿<div class="section text-left">
-    <div class="container">
-        <img class="img-thumbnail" src="../upload/{{id}}/gallery/{{img}}" alt="{{product}}">
+    <div class="container-fluid">
+        <img class="img-thumbnail_" src="../upload/{{id}}/gallery/{{img}}" alt="{{product}}" style="width:100%">
     </div>
     <div class="container" style="margin-top:100px">
         <h1 class="card-title">{{product}}</h1>
@@ -10,7 +10,7 @@
         </div>
         <div class="row mb-5">
             <div class="col-sm-4" ng-repeat="x in options">
-                <label class="lead">{{x.val}}</label>
+                <label class="lead">{{x.val}} <span>{{x.unit}}</span></label>
             </div>
         </div>
     </div>

@@ -129,7 +129,7 @@ footer .glyphicon {
 }
 a {
     color: #4e4e4e;
-    text-decoration: none !important;
+    /*text-decoration: none !important;*/
 }
 a:hover {
     color: #333;

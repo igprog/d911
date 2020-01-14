@@ -50,6 +50,7 @@ public class Products : System.Web.Services.WebService {
         public string code;
         public string title;
         public string val;
+        public string unit;
     }
 
     [WebMethod]
@@ -278,6 +279,7 @@ public class Products : System.Web.Services.WebService {
             x.code = o.code;
             x.title = o.title; // T.TranJson(o.title, "hr");
             x.val = null;
+            x.unit = o.unit;
             xx.Add(x);
         }
         return xx;

@@ -39,8 +39,8 @@
         <!--<h2 class="text-white text-uppercase">{{'contact' | translate}}</h2>-->
         <div>
             <img src="../assets/img/logo.png" class="mb-3" style="height:50px" alt="{{config.sitename}}" />
-            <!--<label>{{info.company}}</label>-->
-            <p ng-if="info.pin" class="text-uppercase">{{pin | translate}}: {{info.pin}}</p>
+            <!--<label><p ng-if="info.company"><strong>{{info.company}}</strong></p></label>-->
+            <p ng-if="info.pin" class="text-uppercase">{{'pin' | translate}}: {{info.pin}}</p>
             <p ng-if="info.address"><i class="fa fa-map-marker-alt"></i> {{info.address}}</p>
             <p><a href="tel:{{info.phone}}" class="text-white" title="{{'phone' | translate}}"><img src="./assets/img/icon/phone.png" style="width:50px" /> {{info.phone}}</a></p>
             <p><a href="mailto:{{info.email}}" class="text-white" title="email"><img src="./assets/img/icon/mail.png" style="width:50px" /> {{info.email}}</a></p>

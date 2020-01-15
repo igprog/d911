@@ -356,22 +356,37 @@ header {
     width: 50%
 }
 
-.contact-padding {
-    padding:50px 50px 20px 300px
+.carousel-inner img {
+    width: 100%;
+    height: 100vh;
+}
+
+.padding-left-resp {
+    padding-left: 200px;
+}
+
+@media (min-width: 1600px) {
+    .contact-padding {
+        padding: 10px 0px 20px 300px;
+    }
 }
 
 @media (min-width: 992px) {
-  header {
-    padding: 106px 0 100px;
-  }
+    header {
+        padding: 106px 0 100px;
+    }
+
 }
-@media (max-width: 992px) {
-  header {
-    padding: 10px 0 100px;
-  }
-  h1 {
-    font-size:35px !important;
-  }
+
+@media screen and (max-width: 992px) {
+    header {
+        padding: 10px 0 100px;
+    }
+
+    h1 {
+        font-size: 35px !important;
+    }
+
     .follow-img {
         width: 80%;
     }
@@ -382,34 +397,55 @@ header {
         text-align: center;
         margin: 25px 0;
     }
+
     .btn-lg {
         width: 100%;
         margin-bottom: 35px;
     }
+
     .logo {
         font-size: 150px;
     }
+
     .follow-img {
         width: 80%;
     }
-    .contact-padding {
-        padding: 10px 0px 20px 0px;
-    }
 
+    .carousel-inner img {
+        width: 100%;
+        height: 100%;
+    }
+    .padding-left-resp {
+        padding-left: 10px;
+    }
 }
 
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-  .sidenav {visibility:hidden;}
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+    }
+
+    .sidenav {
+        visibility: hidden;
+    }
 
     .logo {
         font-size: 150px;
     }
+
     .follow-img {
         width: 80%;
     }
-    .contact-padding {
-        padding: 10px 0px 20px 0px;
+
+    .carousel-inner img {
+        width: 100%;
+        height: 100%;
+    }
+    .padding-left-resp {
+        padding-left: 2px;
     }
 }

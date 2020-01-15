@@ -42,19 +42,18 @@
             font-size: 16px;
         }
         /* Make the image fully responsive */
-        .carousel-inner img {
+        /*.carousel-inner img {
             width: 100%;
             height: 100%;
-        }
+        }*/
     </style>
 </head>
 <body id="home" ng-app="app" ng-controller="appCtrl" data-spy="scroll" data-target=".navbar" data-offset="60" ng-cloak>
     <nav class="navbar navbar-expand-lg fixed-top">
         <a href="index.html" title="{{config.sitename}}">
-            <img src="../assets/img/logo.png" style="height:50px" alt="{{config.sitename}}" />
-            <!--<label style="font-size:20px; color:#fff">DIZAJN 911</label>-->
+            <img src="../assets/img/logo.png" style="height:42px" alt="{{config.sitename}}" />
         </a>
-        <div class="dropdown pl-5">
+        <div class="dropdown padding-left-resp">
             <label class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="assets/img/lang/{{lang}}.svg" alt="{{lang}}" /> <!--{{config.lang.title | translate}}-->
             </label>
@@ -162,14 +161,7 @@
             <!--<div>
                 <p>{{info.services}}</p>
             </div>-->
-            <div class="row mt-5">
-                <div class="col" ng-repeat="x in d.services">
-                    <img src="assets/img/icon/{{x.icon}}" style="width:100px" />
-                    <h2 class="mt-2">
-                        {{x.title | translate}}
-                    </h2>
-                </div>
-            </div>
+            <services-directive data="d.services"></services-directive>
         </div>
         <div id="section2" style="margin-top:40px" class="slideanim p-3">
             <h2 class="text-primary text-uppercase">{{'projects' | translate}}</h2>

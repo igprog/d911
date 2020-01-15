@@ -284,6 +284,16 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate'])
     $scope.year = (new Date).getFullYear();
 }])
 
+.directive('servicesDirective', () => {
+    return {
+        restrict: 'E',
+        scope: {
+            data: '='
+        },
+        templateUrl: './assets/partials/directive/services.html'
+    };
+})
+
 .directive('allowOnlyNumbers', function () {
     return {
         restrict: 'A',

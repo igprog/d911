@@ -13,11 +13,11 @@
     <title>Dizajn 911 | Studio za dizajn interijera</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="...">
+    <meta name="description" content="Dizajn911 je studio za uređenje interijera sa dugogodišnjim iskustvom uređenja interijera raznih namjena. Bilo da se radi o privatnim ili interijerima javne namjene tu smo da realiziramo vaše projekte">
     <meta name="author" content="IG PROG, vl. Igor Gašparović">
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Dizajn 911 | studio za dizajn interijera" />
-    <meta property="og:description" content="..." />
+    <meta property="og:description" content="Dizajn911 je studio za uređenje interijera sa dugogodišnjim iskustvom uređenja interijera raznih namjena. Bilo da se radi o privatnim ili interijerima javne namjene tu smo da realiziramo vaše projekte." />
     <meta property="og:url" content="https://www.dizajn911.com" />
     <meta property="og:image" content="https://www.dizajn911.com/assets/img/logo.png">
     <meta property="og:image:type" content="image/png">
@@ -189,13 +189,19 @@
         </div>
 
         <div class="container slideanim text-left pt-5">
+            <div class="d-block d-sm-none text-center">
+                <h2 class="text-primary text-uppercase">{{'follow us' | translate}}</h2>
+                <p>{{'follow_us_desc' | translate}}.</p>
+            </div>
             <div class="row">
                 <div class="col text-right pr-5 div-wrapper">
                     <img src="./assets/img/smartphone.png" class="img-fluid follow-img" />
                 </div>
                 <div class="col" style="padding:100px 20px 100px 20px">
-                    <h2 class="text-primary text-uppercase">{{'follow us' | translate}}</h2>
-                    <p>{{'follow_us_desc' | translate}}.</p>
+                    <div class="d-none d-sm-block">
+                        <h2 class="text-primary text-uppercase">{{'follow us' | translate}}</h2>
+                        <p>{{'follow_us_desc' | translate}}.</p>
+                    </div>
                     <div class="pt-3">
                         <a href="{{info.social.facebook}}" target="_blank" title="facebook"><img src="./assets/img/icon/face.png" style="width:50px" /></a>
                         <a href="{{info.social.instagram}}" target="_blank" title="instagram"><img src="./assets/img/icon/instagram.png" style="width:50px" /></a>
@@ -206,7 +212,7 @@
     </div>
     
     <div id="section4" class="footer" onclick="closeNav()">
-        <div class="container-fluid section text-white p-5 slideanim tranparent">
+        <div class="container-fluid section text-white pt-5 padding-resp-5 slideanim tranparent">
           <ng-include src="'./assets/partials/contact.html'"></ng-include>
             <div class="fixed text-right d-none d-sm-block" style="margin:0 20px 80px 0">
                 <a href="#home" title="{{'on top' | translate}}" class="color-secondary">

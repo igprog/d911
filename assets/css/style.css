@@ -365,9 +365,18 @@ header {
     padding-left: 200px;
 }
 
+.padding-resp-5 {
+    padding: 0 5% 0 5%;
+}
+
 @media (min-width: 1600px) {
     .contact-padding {
         padding: 10px 0px 20px 300px;
+    }
+}
+@media (max-width: 1600px) {
+    .padding-resp-5 {
+        padding: 0 4% 0 4%;
     }
 }
 
@@ -382,13 +391,14 @@ header {
     header {
         padding: 10px 0 100px;
     }
-
     h1 {
         font-size: 35px !important;
     }
-
     .follow-img {
         width: 80%;
+    }
+    .padding-resp-5 {
+        padding: 0 3% 0 3%;
     }
 }
 
@@ -417,6 +427,9 @@ header {
     }
     .padding-left-resp {
         padding-left: 10px;
+    }
+    .padding-resp-5 {
+        padding: 0 2% 0 2%;
     }
 }
 
@@ -447,5 +460,8 @@ header {
     }
     .padding-left-resp {
         padding-left: 2px;
+    }
+    .padding-resp-5 {
+        padding: 0 1% 0 1%;
     }
 }

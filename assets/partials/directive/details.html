@@ -10,7 +10,7 @@
         </div>
         <div class="row mb-5">
             <div class="col-sm-4" ng-repeat="x in options">
-                <label class="lead">{{x.val}} <span>{{x.unit}}</span></label>
+                <label ng-if="x.val" class="lead">{{x.val}} <span>{{x.unit}}</span></label>
             </div>
         </div>
     </div>

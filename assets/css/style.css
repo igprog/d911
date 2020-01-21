@@ -8,7 +8,7 @@ style.css
 body {
     position: relative;
     color: #fff;
-    background: #000;
+    background: #000 !important;
 }
 .banner {
     background: url("../img/banner.jpg") no-repeat center center;
@@ -158,6 +158,33 @@ header {
     -ms-transform: scale(1.1); /* IE 9 */
     -webkit-transform: scale(1.1); /* Safari 3-8 */
     transform: scale(1.1);
+}
+.zoom-in {
+    cursor: zoom-in;
+}
+.bottom-left {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+}
+.bottom-right {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+}
+.middle-left {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+}.middle-right {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+}
+.top-right {
+  position: absolute;
+  top: 8px;
+  right: 16px;
 }
 
 /***** Social Share *****/
@@ -430,6 +457,9 @@ header {
     }
     .padding-resp-5 {
         padding: 0 2% 0 2%;
+    }
+    .zoom-in {
+        cursor: auto;
     }
 }
 

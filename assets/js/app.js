@@ -2,7 +2,7 @@
 app.js
 (c) 2019 IG PROG, www.igprog.hr
 */
-angular.module('app', ['ngStorage', 'pascalprecht.translate'])
+angular.module('app', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
 .config(['$httpProvider', '$translateProvider', '$translatePartialLoaderProvider', ($httpProvider, $translateProvider, $translatePartialLoaderProvider) => {
 
     $translateProvider.useLoader('$translatePartialLoader', {
@@ -212,18 +212,27 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate'])
 //    };
 //})
 
+//.directive('detailsDirective', () => {
+//    return {
+//        restrict: 'E',
+//        scope: {
+//            id: '=',
+//            product: '=',
+//            shortdesc: '=',
+//            longdesc: '=',
+//            img: '=',
+//            price: '=',
+//            gallery: '=',
+//            options: '='
+//        },
+//        templateUrl: './assets/partials/directive/details.html'
+//    };
+//})
 .directive('detailsDirective', () => {
     return {
         restrict: 'E',
         scope: {
-            id: '=',
-            product: '=',
-            shortdesc: '=',
-            longdesc: '=',
-            img: '=',
-            price: '=',
-            gallery: '=',
-            options: '='
+            data: '='
         },
         templateUrl: './assets/partials/directive/details.html'
     };
@@ -282,6 +291,59 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate'])
 })
 .controller('footerCtrl', ['$scope', '$translate', ($scope, $translate) => {
     $scope.year = (new Date).getFullYear();
+}])
+
+.directive('galleryDirective', () => {
+    return {
+        restrict: 'E',
+        scope: {
+            data: '='
+        },
+        templateUrl: './assets/partials/directive/gallery.html',
+        controller: 'galleryCtrl'
+    };
+})
+.controller('galleryCtrl', ['$scope', '$translate', '$mdDialog', ($scope, $translate, $mdDialog) => {
+
+    var openPopup = function (x, idx) {
+        if ($(window).innerWidth() < 560) { return false; }
+        $mdDialog.show({
+            controller: popupCtrl,
+            templateUrl: './assets/partials/popup/gallery.html',
+            parent: angular.element(document.body),
+            clickOutsideToClose: true,
+            d: { data: x, idx: idx }
+        })
+       .then(function (x) {
+       }, function () {
+       });
+    }
+
+    var popupCtrl = function ($scope, $mdDialog, $http, d, f) {
+        debugger;
+        $scope.d = d;
+
+        $scope.back = (idx) => {
+            if (idx > 0) {
+                $scope.d.idx = idx - 1;
+            }
+        }
+
+        $scope.forward = (idx) => {
+            if (idx >= 0 && idx < $scope.d.data.gallery.length - 1) {
+                $scope.d.idx = idx + 1;
+            }
+        }
+
+        $scope.cancel = function () {
+            $mdDialog.cancel();
+        };
+    };
+
+    $scope.openPopup = (x, idx) => {
+        return openPopup(x, idx);
+    }
+
 }])
 
 .directive('servicesDirective', () => {

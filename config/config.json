@@ -14,6 +14,10 @@
     {
       "code": "en",
       "title": "english"
+    },
+    {
+      "code": "ru",
+      "title": "russian"
     }
   ],
   "lang": {

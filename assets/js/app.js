@@ -87,8 +87,8 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
                   }
               }
               /*** lang ***/
-              loadProducts();
-              loadInfo();
+              loadProducts($rootScope.lang);
+              loadInfo($rootScope.lang);
               loadServices();
           });
     };
@@ -101,21 +101,21 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
         $translate.use(x.code);
         $translatePartialLoader.addPart('main');
         //window.location.href = window.location.origin + '?lang=' + x.code;
-        loadProducts();
-        loadInfo();
+        loadProducts(x.code);
+        loadInfo(x.code);
         loadServices();
     };
 
-    var loadProducts = () => {
+    var loadProducts = (lang) => {
         $scope.d.loading = true;
-        f.post('Products', 'Load', { lang: $sessionStorage.lang }).then((d) => {
+        f.post('Products', 'Load', { lang: lang }).then((d) => {
             $scope.d.records = d;
             $scope.d.loading = false;
         });
     }
 
-    var loadInfo = () => {
-        f.post('Info', 'Load', { lang: $sessionStorage.lang }).then((d) => {
+    var loadInfo = (lang) => {
+        f.post('Info', 'Load', { lang: lang }).then((d) => {
             $rootScope.info = d;
         });
     }
@@ -129,7 +129,6 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
     loadMainGallery();
 
     var loadServices = () => {
-        debugger;
         f.post('Options', 'Load', { type: 'services' }).then((d) => {
             $scope.d.services = d;
         });

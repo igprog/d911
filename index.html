@@ -38,6 +38,7 @@
     <script src="../assets/js/vendor/angular-translate.min.js"></script>
     <script src="../assets/js/vendor/angular-translate-loader-partial.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=1" />
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
@@ -50,7 +51,7 @@
         }*/
     </style>
 </head>
-<body ng-if="config" ng-init="setLang({code:'hr', title:'croatian'})" id="home" data-spy="scroll" data-target=".navbar" data-offset="60" >
+<body id="home" data-spy="scroll" data-target=".navbar" data-offset="60" >
     <nav class="navbar navbar-expand-lg fixed-top" >
         <a href="index.html" title="{{config.sitename}}">
             <img src="../assets/img/logo.png" style="height:42px" alt="{{config.sitename}}" ng-cloak />
@@ -71,7 +72,7 @@
         <div class="collapse navbar-collapse text-uppercase" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="../usluge.html" title="{{'services' | translate}}" ng-cloak>{{'services' | translate}}</a>
+                    <a class="nav-link" href="./hr/usluge.html" title="{{'services' | translate}}" ng-cloak>{{'services' | translate}}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#section2" title="{{'projects' | translate}}" ng-cloak>{{'projects' | translate}}</a>
@@ -91,7 +92,7 @@
             <a class="text-white" title="{{'menu' | translate}}"><strong>{{'menu' | translate}}</strong></a><a href="javascript:void(0)" class="closebtn" onclick="closeNav()" title="{{'close' | translate}}"><strong>&times;</strong></a>
             <hr style="margin:0 5px 10px 5px; background-color:#fff" />
         </div>
-        <a href="../usluge.html" title="{{'services' | translate}}">{{'services' | translate}}</a>
+        <a href="./hr/usluge.html" title="{{'services' | translate}}">{{'services' | translate}}</a>
         <a href="#section2" onclick="closeNav()" title="{{'projects' | translate}}">{{'projects' | translate}}</a>
         <a href="#section3" onclick="closeNav()" title="{{'about us' | translate}}">{{'about us' | translate}}</a>
         <a href="#section4" onclick="closeNav()" title="{{'contact' | translate}}">{{'contact' | translate}}</a>

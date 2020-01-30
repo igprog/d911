@@ -4,6 +4,7 @@ style.css
 */
  html {
       height:auto;
+      background: #000;
   }
 body {
     position: relative;

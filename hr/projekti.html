@@ -1,16 +1,7 @@
 ﻿<!DOCTYPE html>
 <html ng-app="app" ng-controller="appCtrl" lang="hr">
 <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-156515575-1"></script>
-      <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-156515575-1');
-      </script>-->
-    <title>Dizajn 911 | USLUGE UREĐENJA INTERIJERA</title>
+    <title>Dizajn 911 | KONTAKT</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Dizajn911 je studio za uređenje interijera sa dugogodišnjim iskustvom uređenja interijera raznih namjena. Bilo da se radi o privatnim ili interijerima javne namjene tu smo da realiziramo vaše projekte.">
@@ -103,71 +94,20 @@
 
     <loading-directive loadingtitle="'Učitavanje...'" value="d.loading" size="5"></loading-directive>
 
-    <div class="pt-3" onclick="closeNav()" ng-cloak>
+    <div class="pt-3" onclick="closeNav()" style="min-height:80vh" >
         <div id="section1" style="margin-top:80px" class="container section slideanim p-3">
-            <h1 class="lead">USLUGE UREĐENJA INTERIJERA</h1>
-            <hr class="bg-white" />
-            <div>
-                <div class="pt-3">
-                    <label><strong>USLUGA A</strong> uključuje:</label>
-                    <ul>
-                        <li>
-                            Tlocrtna organizacija prostora i dispozicija namještaja i opreme s ucrtanim pozicijama rasvjete<br />
-                            (Potrebno je dostaviti tlocrt postojećeg stanja)
-                        </li>
-                    </ul>
-                </div>
-                <div class="pt-3">
-                    <label><strong>USLUGA B</strong> uključuje:</label>
-                    <ul>
-                        <li>Uvodne konzultacije</li>
-                        <li>Tlocrtna organizacija prostora i dispozicija namještaja i opreme</li>
-                        <li>Nacrt rasvjete</li>
-                        <li>3D Foto realistične vizualizacije</li>
-                    </ul>
-                </div>
-                <div class="pt-3">
-                    <label><strong>USLUGA C</strong> uključuje:</label>
-                    <ul>
-                        <li>Uvodne konzultacije</li>
-                        <li>Tlocrtna organizacija prostora i dispozicija namještaja i opreme</li>
-                        <li>Nacrt rasvjete</li>
-                        <li>Nacrti namještaja koji se izrađuje po mjeri</li>
-                        <li>Troškovnik namještaja i opreme sa specifikacijama</li>
-                        <li>3D Foto realistične vizualizacije</li>
-                    </ul>
-                </div>
-                <div class="pt-3">
-                    <label><strong>USLUGA D</strong> uključuje:</label>
-                    <ul>
-                        <li>Uvodne konzultacije</li>
-                        <li>Tlocrtna organizacija prostora i dispozicija namještaja i opreme</li>
-                        <li>Nacrt rasvjete</li>
-                        <li>Shematski prikaz instalacija struje i vode</li>
-                        <li>Nacrti spuštenih stropova</li>
-                        <li>Nacrti gips-kartonskih radova</li>
-                        <li>Karakteristični pogledi i presjeci</li>
-                        <li>Nacrti namještaja koji se izrađuje po mjeri</li>
-                        <li>Troškovnik namještaja i opreme sa specifikacijama</li>
-                        <li>Specifikacije boja i materijala</li>
-                        <li>3D Foto realistične vizualizacije</li>
-                    </ul>
-                </div>
-                <div class="pt-3">
-                    <h2 style="font-size:16px !important"><strong>OBILAZAK TRGOVINA S KLIJENTIMA</strong></h2>
-                    <p>Savjetovanje klijenata u trgovinama namještaja, keramike i sanitarija i sl. Tijekom savjetovanja pronalaze se idealna rješenja za konkretan projekt.</p>
-                </div>
-                <div class="pt-3">
-                    <h2 style="font-size:16px !important"><strong>SAVJETOVANJE U PROSTORU</strong></h2>
-                    <p>Savjetovanje klijenata u prostoru koji se uređuje. Prolaze se teme organizacije prostora, odabir boja zidova, namještaja, podnih i zidnih obloga te rasvjete.</p>
-                </div>
-                <div class="pt-3">
-                    <h2 style="font-size:16px !important"><strong>ODABIR BOJA ZA ZIDOVE</strong></h2>
-                    <p>Odabir boja zidova pomoću ton karte u samom prostoru ili prema fotografijama prostora.</p>
-                </div>
-                <div class="pt-3">
-                    <h2 style="font-size:16px !important"><strong>3D FOTO REALISTIČNE VIZUALIZACIJE</strong></h2>
-                    <p>Izrada 3D Foto realističnih vizualizacija, minimalno 2 pogleda po prostoriji.</p>
+            <h1 class="text-uppercase lead" ng-cloak>{{'projects' | translate}}</h1>
+            <hr class="bg-white"/>
+            <div class="row mt-2 p-3 text-center" style="overflow:hidden">
+                <div class="col-lg-12 p-2" ng-repeat="x in d.records track by $index"  ng-cloak>
+                    <card-directive id="x.id"
+                                    product="x.title"
+                                    shortdesc="x.shortDesc"
+                                    img="x.img"
+                                    link="'details'"
+                                    showdesc="config.showcarddesc"
+                                    lang="lang">
+                    </card-directive>
                 </div>
             </div>
         </div>

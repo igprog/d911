@@ -33,10 +33,12 @@ public class UploadHandler : IHttpHandler {
                     //string folderPath = context.Server.MapPath(string.Format("~/upload/{0}/gallery", imgId));
 
                     string folderPath = null;
+                    string versionPath = null;
                     if (string.IsNullOrEmpty(imgFolder)) {
                         folderPath = context.Server.MapPath(string.Format("~/upload/{0}/gallery", imgId));
                     } else {
                         folderPath = context.Server.MapPath(string.Format("~/upload/{0}", imgFolder));
+                        versionPath = context.Server.MapPath(string.Format("~/upload/{0}/version.txt", imgFolder));
                     }
 
                     if (!Directory.Exists(folderPath)) {
@@ -44,6 +46,11 @@ public class UploadHandler : IHttpHandler {
                     }
                     if (CheckGalleryLimit(folderPath)) {
                         file.SaveAs(fname);
+                        //***** TODO: save version.txt  *****
+                        //if (!string.IsNullOrEmpty(versionPath)) {
+                        //    File.WriteAllText(versionPath, DateTime.Now.Ticks.ToString());
+                        //}
+
                         context.Response.Write(imgId);
                     } else {
                         context.Response.Write("product limit exceeded");  //TODO

@@ -1,6 +1,6 @@
 ﻿/*!
 app.js
-(c) 2019 IG PROG, www.igprog.hr
+(c) 2019-2020 IG PROG, www.igprog.hr
 */
 angular.module('admin', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
 .config(['$httpProvider', '$translateProvider', '$translatePartialLoaderProvider', ($httpProvider, $translateProvider, $translatePartialLoaderProvider) => {
@@ -510,6 +510,13 @@ angular.module('admin', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
             });
         }
     }
+
+    $scope.tick = 0;
+    var getTime = () => {
+        var d = new Date();
+        $scope.tick = d.getTime();
+    }
+    getTime();
 
     $scope.f = {
         upload: (x) => {

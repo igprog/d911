@@ -1,12 +1,12 @@
-﻿<div class="card shadow zoom bg-light" style="min-height:{{shortdesc===true?'600px':'0px'}}">
-    <a href="../{{link}}.html?id={{id}}&lang={{lang}}" title="{{product}}">
-        <img class="card-img-top" src="../upload/{{id}}/gallery/{{img}}" alt="{{link}}">
+﻿<div class="card shadow zoom bg-light" style="min-height:{{showdesc===true?'600px':'0px'}}">
+    <a href="../{{link}}.html?id={{data.id}}&lang={{lang}}" title="{{data.title}}">
+        <img class="card-img-top" src="../upload/{{data.id}}/gallery/{{data.img}}" alt="{{link}}">
         <div class="bottom-left">
-            <h2 ng-if="product" class="lead" style="color:#fff">{{product}}</h2>
+            <h2 ng-if="data.title" class="lead" style="color:#fff">{{data.title}}</h2>
         </div>
         <div ng-if="showdesc" class="card-body">
-            <h3 ng-if="product" class="card-title">{{product}}</h3>
-            <p ng-if="shortdesc" class="card-text">{{shortdesc}}...</p>
+            <h3 ng-if="data.title" class="card-title">{{data.title}}</h3>
+            <p ng-if="data.shortDesc" class="card-text">{{data.shortDesc}}...</p>
         </div>
     </a>
 </div>

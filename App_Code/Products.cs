@@ -266,7 +266,7 @@ public class Products : System.Web.Services.WebService {
         string path = Server.MapPath(string.Format("~/upload/{0}/gallery", id));
         if (Directory.Exists(path)) {
             string[] ss = Directory.GetFiles(path);
-            xx = ss.Select(a => Path.GetFileName(a)).ToArray();
+            xx = ss.Select(a => string.Format("{0}?v={1}", Path.GetFileName(a), DateTime.Now.Ticks)).ToArray();
         }
         return xx;
     }

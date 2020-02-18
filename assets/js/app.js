@@ -1,6 +1,6 @@
 ﻿/*!
 app.js
-(c) 2019 IG PROG, www.igprog.hr
+(c) 2019-2020 IG PROG, www.igprog.hr
 */
 angular.module('app', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
 .config(['$httpProvider', '$translateProvider', '$translatePartialLoaderProvider', ($httpProvider, $translateProvider, $translatePartialLoaderProvider) => {
@@ -68,6 +68,39 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
     }
     $scope.d = data;
 
+    var loadProducts = (lang) => {
+        $scope.d.loading = true;
+        f.post('Products', 'Load', { lang: lang }).then((d) => {
+            $scope.d.records = d;
+            $scope.d.loading = false;
+        });
+    }
+
+    var loadInfo = (lang) => {
+        f.post('Info', 'Load', { lang: lang }).then((d) => {
+            $rootScope.info = d;
+        });
+    }
+
+    var loadMainGallery = () => {
+        f.post('Info', 'LoadMainGellery', {}).then((d) => {
+            $scope.d.mainGallery = d;
+        });
+    }
+    loadMainGallery();
+
+    var loadServices = () => {
+        f.post('Options', 'Load', { type: 'services' }).then((d) => {
+            $scope.d.services = d;
+        });
+    }
+
+    var loadData = () => {
+        loadProducts($rootScope.lang);
+        loadInfo($rootScope.lang);
+        loadServices();
+    }
+
     var getConfig = function () {
         $http.get('../config/config.json')
           .then(function (response) {
@@ -87,9 +120,25 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
                   }
               }
               /*** lang ***/
-              loadProducts($rootScope.lang);
-              loadInfo($rootScope.lang);
-              loadServices();
+
+              /*** reload page ***/
+              if (typeof (Storage) !== 'undefined') {
+                  if (localStorage.version) {
+                      if (localStorage.version !== $scope.config.version) {
+                          localStorage.version = $scope.config.version;
+                          window.location.reload(true);
+                          loadData();
+                      } else {
+                          loadData();
+                      }
+                  } else {
+                      localStorage.version = $scope.config.version;
+                      loadData();
+                  }
+              } else {
+                  loadData();
+              }
+              /*** reload page ***/
           });
     };
     getConfig();
@@ -106,33 +155,12 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
         loadServices();
     };
 
-    var loadProducts = (lang) => {
-        $scope.d.loading = true;
-        f.post('Products', 'Load', { lang: lang }).then((d) => {
-            $scope.d.records = d;
-            $scope.d.loading = false;
-        });
+    $scope.tick = 0;
+    var getTime = () => {
+        var d = new Date();
+        $scope.tick = d.getTime();
     }
-
-    var loadInfo = (lang) => {
-        f.post('Info', 'Load', { lang: lang }).then((d) => {
-            $rootScope.info = d;
-        });
-    }
-    //loadInfo();
-
-    var loadMainGallery = () => {
-        f.post('Info', 'LoadMainGellery', {}).then((d) => {
-            $scope.d.mainGallery = d;
-        });
-    }
-    loadMainGallery();
-
-    var loadServices = () => {
-        f.post('Options', 'Load', { type: 'services' }).then((d) => {
-            $scope.d.services = d;
-        });
-    }
+    getTime();
 
 }])
 
@@ -241,10 +269,7 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
     return {
         restrict: 'E',
         scope: {
-            id: '=',
-            product: '=',
-            shortdesc: '=',
-            img: '=',
+            data: '=',
             link: '=',
             showdesc: '=',
             lang: '='
@@ -281,6 +306,25 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
     $scope.year = (new Date).getFullYear();
 }])
 
+.directive('corouselDirective', () => {
+    return {
+        restrict: 'E',
+        scope: {
+            showdes: '='
+        },
+        templateUrl: '../assets/partials/directive/corousel.html',
+        controller: 'corouselCtrl'
+    };
+})
+.controller('corouselCtrl', ['$scope', ($scope) => {
+    $scope.tick = 0;
+    var getTime = () => {
+        var d = new Date();
+        $scope.tick = d.getTime();
+    }
+    getTime();
+}])
+
 .directive('galleryDirective', () => {
     return {
         restrict: 'E',
@@ -308,7 +352,6 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
     }
 
     var popupCtrl = function ($scope, $mdDialog, $http, d, f) {
-        debugger;
         $scope.d = d;
 
         $scope.back = (idx) => {

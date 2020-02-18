@@ -109,7 +109,7 @@
     <script type="text/ng-template" id="login">
         <div class="container">
             <div ng-if="!d.isLogin" class="row justify-content-center" style="padding-top:160px">
-                <div class="col-sm-6 shadow p-5">
+                <div class="col-sm-6 shadow p-5" style="border:solid 1px #fff; border-radius:10px; color:#fff">
                     <h2>Prijava</h2>
                     <form id="loginform">
                         <div class="form-group">
@@ -121,7 +121,7 @@
                             <input ng-model="d.admin.password" type="password" class="form-control" name="password" placeholder="lozinka">
                         </div>
                         <div class="text-right">
-                            <button type="submit" form="loginform" ng-click="f.login(d.admin)" class="btn btn-outline-primary"><span class="fa fa-unlock-altfa fa-key" aria-hidden="true"></span> <span class="text-capitalize">Prijava</span></button>
+                            <button type="submit" form="loginform" ng-click="f.login(d.admin)" class="btn btn-default"><span class="fa fa-unlock-altfa fa-key" aria-hidden="true"></span> <span class="text-capitalize">Prijava</span></button>
                         </div>
                     </form>
                 </div>

@@ -1,6 +1,6 @@
 ﻿ /*!
 style.css
-(c) 2019 IG PROG, www.igprog.hr
+(c) 2019-2020 IG PROG, www.igprog.hr
 */
  html {
       height:auto;
@@ -72,11 +72,11 @@ footer .glyphicon {
     background-color: #000;
     color: #fff;
 }
-.bottom-left {
+/*.bottom-left {
   position: absolute;
   bottom: 8px;
   left: 16px;
-}
+}*/
 
 .slideanim {visibility:hidden;}
 .slide {
@@ -395,6 +395,10 @@ header {
 
 .padding-resp-5 {
     padding: 0 5% 0 5%;
+}
+
+.dropdown-toggle::after {
+    display:none;
 }
 
 @media (min-width: 1600px) {

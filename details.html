@@ -40,14 +40,7 @@
 <body>
     <navbar-directive site="config.sitename" lang="lang"></navbar-directive>
     <loading-directive loadingtitle="'Učitavanje...'" value="d.loading" size="5"></loading-directive>
-    <!--<details-directive ng-if="!d.loading" id="d.id"
-                        product="d.title"
-                        shortdesc="d.shortDesc"
-                        longdesc="d.longDesc"
-                        img="d.img"
-                        gallery="d.gallery"
-                        options="d.productOptions">
-    </details-directive>-->
+
     <details-directive ng-if="!d.loading" data="d"></details-directive>
 
     <footer-directive sitename="config.sitename"></footer-directive>

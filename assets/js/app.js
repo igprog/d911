@@ -70,7 +70,7 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
 
     var loadProducts = (lang) => {
         $scope.d.loading = true;
-        f.post('Products', 'Load', { lang: lang }).then((d) => {
+        f.post('Products', 'Load', { lang: lang, order: true }).then((d) => {
             $scope.d.records = d;
             $scope.d.loading = false;
         });

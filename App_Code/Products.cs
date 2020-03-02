@@ -39,18 +39,12 @@ public class Products : System.Web.Services.WebService {
         public int displayType;
         public string[] gallery;
         public List<Options.NewOption> options;
-        public List<ProductOption> productOptions;
+        public List<Options.NewOption> productOptions;
+        public int productOrder;
     }
 
     public class City {
         public string city;
-    }
-
-    public class ProductOption {
-        public string code;
-        public string title;
-        public string val;
-        public string unit;
     }
 
     [WebMethod]
@@ -66,7 +60,8 @@ public class Products : System.Web.Services.WebService {
             x.isActive = true;
             x.displayType = 0;
             x.options = new List<Options.NewOption>();
-            x.productOptions = new List<ProductOption>();
+            x.productOptions = new List<Options.NewOption>();
+            x.productOrder = 1;
             return JsonConvert.SerializeObject(x, Formatting.None);    
         } catch (Exception e) {
             return JsonConvert.SerializeObject(e.Message, Formatting.None);
@@ -74,17 +69,17 @@ public class Products : System.Web.Services.WebService {
     }
 
     [WebMethod]
-    public string Load(string lang) {
+    public string Load(string lang, bool order) {
         try {
-            return JsonConvert.SerializeObject(LoadData(lang), Formatting.None);
+            return JsonConvert.SerializeObject(LoadData(lang, order), Formatting.None);
         } catch (Exception e) {
             return JsonConvert.SerializeObject(e.Message, Formatting.None);
         }
     }
 
-    public List<NewProduct> LoadData(string lang) {
+    public List<NewProduct> LoadData(string lang, bool order) {
         DB.CreateDataBase(G.db.products);
-        string sql = "SELECT id, productGroup, title, shortDesc, longDesc, img, isActive, displayType, productOptions FROM products";
+        string sql = string.Format("SELECT id, productGroup, title, shortDesc, longDesc, img, isActive, displayType, productOptions, productOrder FROM products {0}", order==true ? "ORDER BY productOrder" : "");
         List<NewProduct> xx = new List<NewProduct>();
         List<Options.NewOption> options = O.GetOptions(G.optionType.product);
         using (var connection = new SQLiteConnection("Data Source=" + DB.GetDataBasePath(G.dataBase))) {
@@ -106,9 +101,8 @@ public class Products : System.Web.Services.WebService {
                         x.isActive = G.ReadB(reader, 6);
                         x.displayType = G.ReadI(reader, 7);
                         x.options = options;
-                        x.productOptions = string.IsNullOrEmpty(G.ReadS(reader, 8))
-                                        ? InitProductOptions(x.options)
-                                        : JsonConvert.DeserializeObject<List<ProductOption>>(G.ReadS(reader, 8)).ToList();
+                        x.productOptions = GetProductOptions(options, G.ReadS(reader, 8));
+                        x.productOrder = G.ReadI(reader, 9);
                         x.gallery = GetGallery(x.id);
                         xx.Add(x);
                     }
@@ -131,7 +125,7 @@ public class Products : System.Web.Services.WebService {
     public NewProduct GetProduct(string id, string lang) {
         NewProduct x = new NewProduct();
         List<Options.NewOption> options = O.GetOptions(G.optionType.product);
-        string sql = string.Format("SELECT id, productGroup, title, shortDesc, longDesc, img, isActive, displayType, productOptions FROM products WHERE id = '{0}'", id);
+        string sql = string.Format("SELECT id, productGroup, title, shortDesc, longDesc, img, isActive, displayType, productOptions, productOrder FROM products WHERE id = '{0}'", id);
         using (var connection = new SQLiteConnection("Data Source=" + DB.GetDataBasePath(G.dataBase))) {
             connection.Open();
             using (var command = new SQLiteCommand(sql, connection)) {
@@ -150,9 +144,8 @@ public class Products : System.Web.Services.WebService {
                     x.isActive = G.ReadB(reader, 6);
                     x.displayType = G.ReadI(reader, 7);
                     x.options = options;
-                    x.productOptions = string.IsNullOrEmpty(G.ReadS(reader, 8))
-                                    ? InitProductOptions(x.options)
-                                    : JsonConvert.DeserializeObject<List<ProductOption>>(G.ReadS(reader, 8)).ToList();
+                    x.productOptions = GetProductOptions(options, G.ReadS(reader, 8));
+                    x.productOrder = G.ReadI(reader, 9);
                     x.gallery = GetGallery(x.id);
                 }
             }
@@ -166,13 +159,23 @@ public class Products : System.Web.Services.WebService {
         try {
             DB.CreateDataBase(G.db.products);
             string sql = null;
+
+            string productOptions = null;
+            if (x.productOptions.Count > 0 ) {
+                var po_ = new List<string>();
+                foreach (var po in x.productOptions) {
+                    po_.Add(string.Format("{0}:{1}", po.code, po.desc));
+                }
+                productOptions = string.Join(";", po_);
+            }
+            
             if (string.IsNullOrEmpty(x.id)) {
                 x.id = Guid.NewGuid().ToString();
-                sql = string.Format(@"INSERT INTO products VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}')"
-                                    , x.id, x.productGroup, x.title, x.shortDesc, x.longDesc, x.img, x.isActive, x.displayType, JsonConvert.SerializeObject(x.productOptions, Formatting.None));
+                sql = string.Format(@"INSERT INTO products VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}')"
+                                    , x.id, x.productGroup, x.title, x.shortDesc, x.longDesc, x.img, x.isActive, x.displayType, productOptions, x.productOrder);
             } else {
-                sql = string.Format(@"UPDATE products SET productGroup = '{1}', title = '{2}', shortDesc = '{3}', longDesc = '{4}', img = '{5}', isActive = '{6}', displayType = '{7}', productOptions = '{8}'  WHERE id = '{0}'"
-                                    , x.id, x.productGroup, x.title, x.shortDesc, x.longDesc, x.img, x.isActive, x.displayType, JsonConvert.SerializeObject(x.productOptions, Formatting.None));
+                sql = string.Format(@"UPDATE products SET productGroup = '{1}', title = '{2}', shortDesc = '{3}', longDesc = '{4}', img = '{5}', isActive = '{6}', displayType = '{7}', productOptions = '{8}', productOrder = '{9}'  WHERE id = '{0}'"
+                                    , x.id, x.productGroup, x.title, x.shortDesc, x.longDesc, x.img, x.isActive, x.displayType, productOptions, x.productOrder);
             }
             using (var connection = new SQLiteConnection("Data Source=" + DB.GetDataBasePath(G.dataBase))) {
                 connection.Open();
@@ -181,7 +184,7 @@ public class Products : System.Web.Services.WebService {
                 }
                 connection.Close();
             }
-            return JsonConvert.SerializeObject(LoadData(null), Formatting.None);
+            return JsonConvert.SerializeObject(LoadData(null, false), Formatting.None);
         } catch (Exception e) {
             return JsonConvert.SerializeObject(e.Message, Formatting.None);
         }
@@ -198,7 +201,7 @@ public class Products : System.Web.Services.WebService {
                 }
                 connection.Close();
             }
-            return JsonConvert.SerializeObject(LoadData(null), Formatting.None);
+            return JsonConvert.SerializeObject(LoadData(null, false), Formatting.None);
         } catch (Exception e) {
             return JsonConvert.SerializeObject(e.Message, Formatting.None);
         }
@@ -217,7 +220,7 @@ public class Products : System.Web.Services.WebService {
                     }
                 }
             }
-            return JsonConvert.SerializeObject(LoadData(null), Formatting.None);
+            return JsonConvert.SerializeObject(LoadData(null, false), Formatting.None);
         } catch (Exception e) {
             return JsonConvert.SerializeObject(e.Message, Formatting.None);
         }
@@ -255,7 +258,7 @@ public class Products : System.Web.Services.WebService {
                 }
                 connection.Close();
             }
-            return JsonConvert.SerializeObject(LoadData(null), Formatting.None);
+            return JsonConvert.SerializeObject(LoadData(null, false), Formatting.None);
         } catch (Exception e) {
             return JsonConvert.SerializeObject(e.Message, Formatting.None);
         }
@@ -271,14 +274,37 @@ public class Products : System.Web.Services.WebService {
         return xx;
     }
 
-    private List<ProductOption> InitProductOptions(List<Options.NewOption> options) {
-        ProductOption x = new ProductOption();
-        List<ProductOption> xx = new List<ProductOption>();
+    private List<Options.NewOption> GetProductOptions(List<Options.NewOption> options, string data) {
+        var xx = new List<Options.NewOption>();
+        if (!string.IsNullOrEmpty(data)) {
+            string[] opt = data.Split(';');
+            foreach (var o in opt) {
+                string[] o_ = o.Split(':');
+                var po = new Options.NewOption();
+                var po_ = options.Find(a => a.code == o_[0]);
+                po.code = po_.code;
+                po.title = po_.title;
+                po.desc = o_[1];
+                po.unit = po_.unit;
+                po.icon = po_.icon;
+                po.faicon = po_.faicon;
+                po.type = po_.type;
+                po.order = po_.order;
+                xx.Add(po);
+            }
+        } else {
+            xx = InitProductOptions(options);
+        }
+        return xx;
+    }
+
+    private List<Options.NewOption> InitProductOptions(List<Options.NewOption> options) {
+        Options.NewOption x = new Options.NewOption();
+        List<Options.NewOption> xx = new List<Options.NewOption>();
         foreach (Options.NewOption o in options) {
-            x = new ProductOption();
+            x = new Options.NewOption();
             x.code = o.code;
-            x.title = o.title; // T.TranJson(o.title, "hr");
-            x.val = null;
+            x.title = o.title;
             x.unit = o.unit;
             xx.Add(x);
         }

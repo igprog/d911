@@ -27,7 +27,7 @@ public class Options : System.Web.Services.WebService {
         public string desc;
         public string unit;
         public string icon;
-        public string favicon;
+        public string faicon;
         public string type;
         public int order;
     }

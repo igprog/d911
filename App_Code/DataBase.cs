@@ -30,7 +30,8 @@ public class DataBase {
                     img NVARCHAR(50),
                     isActive NVARCHAR(50),
                     displayType INTEGER,
-                    productOptions TEXT)";
+                    productOptions TEXT,
+                    productOrder INTEGER)";
         CreateTable(path, sql);
     }
 

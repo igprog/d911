@@ -180,7 +180,7 @@ angular.module('admin', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
     loadProductGroups();
 
     var load = () => {
-        f.post(service, 'Load', { lang: 'hr' }).then((d) => {
+        f.post(service, 'Load', { lang: 'hr', order: false }).then((d) => {
             $scope.d.records = d;
         });
     }

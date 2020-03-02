@@ -10,7 +10,10 @@
         </div>
         <div class="row mb-5">
             <div class="col-sm-4" ng-repeat="x in data.productOptions">
-                <label ng-if="x.val" class="lead">{{x.val}} <span>{{x.unit}}</span></label>
+                <label ng-if="x.desc" class="lead">
+                    <img ng-if="x.icon" src="../assets/img/icon/{{x.icon}}" style="width:60px" alt="{{x.icon}}" />
+                    <span class="pl-3">{{x.desc}}</span><span>{{x.unit}}</span>
+                </label>
             </div>
         </div>
     </div>

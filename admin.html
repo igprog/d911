@@ -24,6 +24,7 @@
     <script src="../assets/js/vendor/angular-translate-loader-partial.min.js"></script>
     <script src="assets/js/vendor/ngStorage.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Encode Sans Expanded' rel='stylesheet'>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=2" />
     <style>
          body {
              color: #000;
@@ -273,7 +274,7 @@
                                     <th style="min-width:200px">Opis (EN)</th>
                                     <th style="min-width:100px">Jedinica</th>
                                     <th style="width:200px">Ikona</th>
-                                    <th style="width:200px">Fav icon</th>
+                                    <th style="width:200px">Fa icon</th>
                                     <th style="min-width:100px">Tip</th>
                                     <th style="width:30px">Redosljed</th>
                                 </tr>
@@ -293,9 +294,9 @@
                                     </td>
                                     <td>
                                         <div class="input-group">
-                                            <input ng-model="x.favicon" type="text" class="form-control" />
+                                            <input ng-model="x.faicon" type="text" class="form-control" />
                                             <div class="input-group-append">
-                                                <span class="input-group-text"><i class="fa fa-{{x.favicon}}"></i></span>
+                                                <span class="input-group-text"><i class="fa fa-{{x.faicon}}"></i></span>
                                             </div>
                                         </div>
                                     </td>
@@ -363,11 +364,15 @@
                                     <textarea ng-model="x.longDesc" rows="6" class="form-control" maxlength="4000"></textarea>
                                     <tran-btn ng-click="f.openTranPopup(x, 'productLongDesc')"></tran-btn>
                                 </div>
+                                <div class="form-group">
+                                    <label>Redosljed:</label>
+                                    <input ng-model="x.productOrder" type="number" class="form-control"  style="width:100px">
+                                </div>
                                 <label>Opcije:</label>
                                 <hr style="margin-top:0" />
                                 <div class="form-group" ng-repeat="y in x.productOptions">
                                     <label>{{y.title | translate}} <span>{{y.unit}}</span>:</label>
-                                    <input ng-model="y.val" type="text" class="form-control" maxlength="200">
+                                    <input ng-model="y.desc" type="text" class="form-control" maxlength="200">
                                 </div>
                                 <div class="text-right">
                                     <button ng-click="f.save(x)" type="submit" class="btn btn-outline-success"><i class="fa fa-save"></i> Spremi</button>

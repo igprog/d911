@@ -41,4 +41,33 @@ public class Admin : System.Web.Services.WebService {
         }
     }
 
+
+    // Test
+    [WebMethod]
+    public string CreatePage(string page) {
+
+        string template = null;
+        string template_path = Server.MapPath("~/index.html");
+        if (System.IO.File.Exists(template_path)) {
+            template = System.IO.File.ReadAllText(template_path);
+        }
+
+        string content = @"<!DOCTYPE html>
+<html>
+<title>HTML Tutorial</title>
+<body>
+
+<h1>This is a heading</h1>
+<p>This is a paragraph.</p>
+
+</body>
+</html>";
+        string path = Server.MapPath(string.Format("~/{0}.html", page));
+        if (!System.IO.Directory.Exists(path)) {
+            System.IO.File.WriteAllText(path, template);
+
+        }
+        return "ok";
+    }
+
 }

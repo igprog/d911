@@ -72,11 +72,6 @@ footer .glyphicon {
     background-color: #000;
     color: #fff;
 }
-/*.bottom-left {
-  position: absolute;
-  bottom: 8px;
-  left: 16px;
-}*/
 
 .slideanim {visibility:hidden;}
 .slide {
@@ -163,10 +158,33 @@ header {
 .zoom-in {
     cursor: zoom-in;
 }
+
+.zoom a {
+    color:#fff;
+}
+
+.hilight:hover {
+    background-color: rgba(0,0,0,0.85);
+    z-index: 1;
+    transition: .6s;
+}
+
+.hilight:hover .bottom-left {
+    display: block;
+}
+
+.stretch {
+    position: absolute;
+    bottom: 0px;
+    top:0px;
+    left:0;
+    right:0;
+}
 .bottom-left {
-  position: absolute;
-  bottom: 8px;
-  left: 16px;
+    display: none;
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
 }
 .bottom-right {
   position: absolute;
@@ -367,7 +385,6 @@ header {
   font-size: 36px;
   margin-left: 50px;
 }
-
 /*********** Sidenav ************/
 
 .div-wrapper {

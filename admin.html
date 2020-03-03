@@ -230,7 +230,7 @@
                                     Grupa br. {{$index+1}}
                                 </div>
                                 <div class="col-sm-6 text-right">
-                                    <button ng-click="f.remove(x)" class="btn btn-outline-danger pull-right" ng-disabled="!config.debug"><i class="fa fa-trash-alt"></i> Briši</button>
+                                    <button ng-disabled="d.adminType==='admin'" ng-click="f.remove(x)" class="btn btn-outline-danger pull-right" ng-disabled="!config.debug"><i class="fa fa-trash-alt"></i> Briši</button>
                                 </div>
                             </div>
                         </div>
@@ -251,7 +251,7 @@
                 </div>
             </div>
             <div>
-                <button ng-click="f.init()" class="btn btn-outline-primary m-3"><i class="fa fa-plus"></i> Nova grupa</button>
+                <button ng-disabled="d.adminType==='admin'" ng-click="f.init()" class="btn btn-outline-primary m-3"><i class="fa fa-plus"></i> Nova grupa</button>
             </div>
         </div>
     </script>
@@ -321,7 +321,19 @@
     <script type="text/ng-template" id="products">
         <div ng-if="d.isLogin" ng-controller="productsCtrl">
             <loading-directive loadingtitle="'Učitavanje...'" value="d.loading" size="5"></loading-directive>
-            <h2 class="ml-3">Proizvodi</h2>
+            <div class="ml-3">
+                <h2>Proizvodi</h2>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Grupa:</label>
+                            <select ng-model="d.productGroupId" class="form-control" ng-change="f.load(d.productGroupId)">
+                                <option ng-repeat="x in d.productGroups" value="{{x.id}}">{{x.title}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div ng-if="d.records.length>0&&!d.loading" ng-repeat="x in d.records track by $index" class="card shadow m-3">
                 <div class="card-header">
                     <div class="row">
@@ -351,7 +363,7 @@
                                 </div>-->
                                 <div class="form-group">
                                     <label>Naziv:</label>
-                                    <input ng-model="x.title" type="text" class="form-control" maxlength="30">
+                                    <input ng-model="x.title" type="text" class="form-control" maxlength="200">
                                     <tran-btn ng-click="f.openTranPopup(x, 'productTitle')"></tran-btn>
                                 </div>
                                 <div class="form-group">
@@ -367,6 +379,18 @@
                                 <div class="form-group">
                                     <label>Redosljed:</label>
                                     <input ng-model="x.productOrder" type="number" class="form-control"  style="width:100px">
+                                </div>
+                                <div class="form-group">
+                                    <label>Vlasnik:</label>
+                                    <input ng-model="x.owner" class="form-control" maxlength="200" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Datum:</label>
+                                    <input ng-model="x.productDate" class="form-control" maxlength="30" />
+                                </div>
+                                <div class="form-group">
+                                    <label>URL:</label>
+                                    <input ng-model="x.url" class="form-control" maxlength="4000" />
                                 </div>
                                 <label>Opcije:</label>
                                 <hr style="margin-top:0" />

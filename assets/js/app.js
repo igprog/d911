@@ -70,7 +70,7 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
 
     var loadProducts = (lang) => {
         $scope.d.loading = true;
-        f.post('Products', 'Load', { lang: lang, order: true }).then((d) => {
+        f.post('Products', 'Load', { lang: lang, order: true, productGroupId: $rootScope.config.productGroupId }).then((d) => {
             $scope.d.records = d;
             $scope.d.loading = false;
         });
@@ -214,6 +214,32 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
             $scope.loading = false;
         })
     }
+
+}])
+
+.controller('postsCtrl', ['$scope', '$http', '$rootScope', 'f', '$translate', '$timeout', function ($scope, $http, $rootScope, f, $translate, $timeout) {
+    var service = 'Products';
+    var data = {
+        loading: false,
+        records: [],
+        info: null,
+        mainGallery: null,
+        services: []
+    }
+    $scope.d = data;
+
+
+    var loadPosts = (lang) => {
+        debugger;
+        $scope.d.loading = true;
+        f.post(service, 'Load', { lang: lang, order: true, productGroupId: $rootScope.config.postsId }).then((d) => {
+            $scope.d.records = d;
+            $scope.d.loading = false;
+        });
+    }
+    $timeout(function () {
+        loadPosts($rootScope.lang);
+    }, 500);
 
 }])
 
@@ -386,6 +412,17 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
         templateUrl: '../assets/partials/directive/services.html'
     };
 })
+
+.directive('postDirective', () => {
+    return {
+        restrict: 'E',
+        scope: {
+            data: '='
+        },
+        templateUrl: '../assets/partials/directive/post.html'
+    };
+})
+
 
 .directive('allowOnlyNumbers', function () {
     return {

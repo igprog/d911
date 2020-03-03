@@ -31,7 +31,10 @@ public class DataBase {
                     isActive NVARCHAR(50),
                     displayType INTEGER,
                     productOptions TEXT,
-                    productOrder INTEGER)";
+                    productOrder INTEGER,
+                    owner NVARCHAR(50),
+                    productDate VARCHAR(50),
+                    url VARCHAR(50))";
         CreateTable(path, sql);
     }
 

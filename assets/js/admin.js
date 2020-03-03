@@ -42,6 +42,7 @@ angular.module('admin', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
 
 .controller('adminCtrl', ['$scope', '$http', 'f', '$sessionStorage', '$translate', ($scope, $http, f, $sessionStorage, $translate) => {
     var isLogin = $sessionStorage.islogin !== undefined ? $sessionStorage.islogin : false;
+    var adminType = $sessionStorage.adminType !== undefined ? $sessionStorage.adminType : 'admin';
     var service = 'Admin';
     var data = {
         admin: {
@@ -49,6 +50,7 @@ angular.module('admin', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
             password: null
         },
         isLogin: isLogin,
+        adminType: adminType,
         inquiries: null,
         loading: false,
         productGroups: [],
@@ -83,9 +85,12 @@ angular.module('admin', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
     /********* Login **********/
     var login = (x) => {
         f.post(service, 'Login', { username: x.userName, password: x.password }).then((d) => {
-            $scope.d.isLogin = d;
-            $sessionStorage.islogin = d;
-            if (d === true) {
+            debugger;
+            $scope.d.isLogin = d.isLogin;
+            $sessionStorage.islogin = d.isLogin;
+            $scope.d.adminType = d.adminType;
+            $sessionStorage.adminType = d.adminType;
+            if (d.isLogin === true) {
                 $scope.toggleTpl('info');
             }
         });
@@ -107,11 +112,14 @@ angular.module('admin', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
 
 }])
 
-.controller('productGroupsCtrl', ['$scope', '$http', 'f', ($scope, $http, f) => {
-        var service = 'ProductGroups';
+.controller('productGroupsCtrl', ['$scope', '$http', 'f', '$sessionStorage', ($scope, $http, f, $sessionStorage) => {
+    var service = 'ProductGroups';
+    var adminType = $sessionStorage.adminType !== undefined ? $sessionStorage.adminType : 'admin';
+
         var data = {
             loading: false,
-            records: []
+            records: [],
+            adminType: adminType
         }
         $scope.d = data;
 
@@ -166,25 +174,28 @@ angular.module('admin', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
         loading: false,
         productGroups: [],
         records: [],
-        currProduct: null
+        currProduct: null,
+        productGroupId: null
     }
     $scope.d = data;
+
+    var load = (productGroupId) => {
+        f.post(service, 'Load', { lang: 'hr', order: false, productGroupId: productGroupId }).then((d) => {
+            $scope.d.records = d;
+        });
+    }
 
     var loadProductGroups = () => {
         $scope.d.loading = true;
         f.post('ProductGroups', 'Load', {}).then((d) => {
             $scope.d.productGroups = d;
+            load($scope.d.productGroups[0].id);
+            $scope.d.productGroupId = $scope.d.productGroups[0].id;
             $scope.d.loading = false;
+
         });
     }
     loadProductGroups();
-
-    var load = () => {
-        f.post(service, 'Load', { lang: 'hr', order: false }).then((d) => {
-            $scope.d.records = d;
-        });
-    }
-    load();
 
     var save = (x) => {
         f.post(service, 'Save', { x: x }).then((d) => {
@@ -215,7 +226,7 @@ angular.module('admin', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
 
     var deleteImg = (x, img) => {
         if (confirm('Briši sliku?')) {
-            f.post(service, 'DeleteImg', { productId: x.id, img: img }).then((d) => {
+            f.post(service, 'DeleteImg', { x: x, img: img }).then((d) => {
                 $scope.d.records = d;
             });
         }
@@ -236,7 +247,7 @@ angular.module('admin', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
     }
 
     var setMainImg = (x, img) => {
-        f.post(service, 'SetMainImg', { productId: x.id, img: img }).then((d) => {
+        f.post(service, 'SetMainImg', { x: x, img: img }).then((d) => {
             $scope.d.records = d;
         });
     }
@@ -312,8 +323,9 @@ angular.module('admin', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
     };
 
     $scope.f = {
-        load: () => {
-            return load();
+        load: (productGroupId) => {
+            debugger;
+            return load(productGroupId);
         },
         save: (x) => {
             return save(x)

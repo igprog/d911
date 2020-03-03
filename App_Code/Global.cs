@@ -27,10 +27,13 @@ namespace Igprog {
         public string email = ConfigurationManager.AppSettings["email"];
         public string adminUserName = ConfigurationManager.AppSettings["adminUserName"];
         public string adminPassword = ConfigurationManager.AppSettings["adminPassword"];
+        public string supervisorUserName = ConfigurationManager.AppSettings["supervisorUserName"];
+        public string supervisorPassword = ConfigurationManager.AppSettings["supervisorPassword"];
         public string dataBase = ConfigurationManager.AppSettings["dataBase"];
 
         public RecordType recordType = new RecordType();
         public OptionType optionType = new OptionType();
+        public AdminType adminType = new AdminType();
 
         public class DB {
             public string productGroups = "productGroups";
@@ -49,6 +52,11 @@ namespace Igprog {
         public class OptionType {
             public string services = "services";
             public string product = "product";
+        }
+
+        public class AdminType {
+            public string admin = "admin";
+            public string supervisor = "supervisor";
         }
 
         public string ReadS(SQLiteDataReader reader, int i) {

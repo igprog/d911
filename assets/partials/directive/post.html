@@ -1,0 +1,10 @@
+﻿<div class="card shadow text-dark">
+    <img class="card-img-top" src="../upload/{{data.id}}/gallery/{{data.img}}" alt="{{data.url}}">
+    <div class="card-body">
+        <div class="text-left">
+            <span class="badge badge-dark">{{data.owner}}</span>
+        </div>
+        <h3 ng-if="data.title" class="card-title">{{data.title}}</h3>
+        <p ng-if="data.shortDesc" class="card-text">{{data.shortDesc}}...<a href="{{data.url}}" title="{{data.url}}"><strong>više...</strong></a></p>
+    </div>
+</div>

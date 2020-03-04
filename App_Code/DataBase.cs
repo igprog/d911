@@ -32,9 +32,9 @@ public class DataBase {
                     displayType INTEGER,
                     productOptions TEXT,
                     productOrder INTEGER,
-                    owner NVARCHAR(50),
+                    owner NVARCHAR(200),
                     productDate VARCHAR(50),
-                    url VARCHAR(50))";
+                    url VARCHAR(200))";
         CreateTable(path, sql);
     }
 

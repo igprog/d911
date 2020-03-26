@@ -21,6 +21,10 @@ public class UploadHandler : IHttpHandler {
                 HttpPostedFile file = files[i];
                 //string fname = context.Server.MapPath(string.Format("~/upload/{0}/gallery/{1}", imgId, file.FileName));
 
+                if (string.IsNullOrEmpty(imgId) && imgFolder == "temp") {
+                    imgId = file.FileName;
+                }
+
                 string fname = null;
                 if (string.IsNullOrEmpty(imgFolder)) {
                     fname = context.Server.MapPath(string.Format("~/upload/{0}/gallery/{1}", imgId, file.FileName));

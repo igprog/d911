@@ -18,6 +18,7 @@ public class Contact : System.Web.Services.WebService {
         public string name;
         public string email;
         public string phone;
+        public string file;
         public string msg;
         public Mail.Response response;
     }
@@ -28,6 +29,7 @@ public class Contact : System.Web.Services.WebService {
         x.name = null;
         x.email = null;
         x.phone = null;
+        x.file = null;
         x.msg = null;
         x.response = new Mail.Response();
         x.response.isSent = false;

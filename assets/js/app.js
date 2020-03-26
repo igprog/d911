@@ -200,6 +200,7 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
 .controller('contactCtrl', ['$scope', '$http', '$rootScope', 'f', '$translate', function ($scope, $http, $rootScope, f, $translate) {
     var service = 'Contact';
     $scope.loading = false;
+
     var init = () => {
         f.post(service, 'Init', {}).then((d) => {
             $scope.d = d;
@@ -213,6 +214,25 @@ angular.module('app', ['ngStorage', 'pascalprecht.translate', 'ngMaterial'])
             $scope.d = d;
             $scope.loading = false;
         })
+    }
+
+    $scope.upload = (d) => {
+        var content = new FormData(document.getElementById('formUpload_'));
+        $http({
+            url: '../UploadHandler.ashx',
+            method: 'POST',
+            headers: { 'Content-Type': undefined },
+            data: content,
+        }).then(function (response) {
+            $scope.d.file = response.data;
+        },
+        function (response) {
+            alert(response.data.d);
+        });
+    }
+
+    $scope.removeImg = function () {
+        $scope.d.file = null;
     }
 
 }])

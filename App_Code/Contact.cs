@@ -46,7 +46,7 @@ public class Contact : System.Web.Services.WebService {
 <p>Tel: {2}</p>
 <p>Poruka: {3}</p>", x.name, x.email, x.phone, x.msg);
         Mail m = new Mail();
-        x.response = m.SendMail(G.email, "Novi upit", subject);
+        x.response = m.SendMail(G.email, "Novi upit", subject, x.file);
         return JsonConvert.SerializeObject(x, Formatting.None);
     }
 

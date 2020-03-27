@@ -33,9 +33,6 @@ public class UploadHandler : IHttpHandler {
                 }
 
                 if (!string.IsNullOrEmpty(file.FileName)) {
-
-                    //string folderPath = context.Server.MapPath(string.Format("~/upload/{0}/gallery", imgId));
-
                     string folderPath = null;
                     string versionPath = null;
                     if (string.IsNullOrEmpty(imgFolder)) {
@@ -43,6 +40,13 @@ public class UploadHandler : IHttpHandler {
                     } else {
                         folderPath = context.Server.MapPath(string.Format("~/upload/{0}", imgFolder));
                         versionPath = context.Server.MapPath(string.Format("~/upload/{0}/version.txt", imgFolder));
+
+                            //TODO:
+                        //if (Directory.Exists(folderPath) && imgFolder == "temp") {
+                        //    foreach (string f in Directory.GetFiles(folderPath)) {
+                        //        File.Delete(f);
+                        //    }
+                        //}
                     }
 
                     if (!Directory.Exists(folderPath)) {

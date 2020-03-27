@@ -38,5 +38,9 @@
   "menu": "Izbornik",
   "close": "Zatvor",
   "attach the file": "Priložite datoteku",
-  "remove": "Briši"
+  "remove": "Briši",
+  "project": "Projekt",
+  "floor plans": "tlocrti",
+  "cross sections": "presjeci"
+
 }

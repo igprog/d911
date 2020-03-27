@@ -39,6 +39,9 @@
   "menu": "Menu",
   "close": "Close",
   "attach the file": "Attach the File",
-  "remove": "Remove"
+  "remove": "Remove",
+  "project": "Project",
+  "floor plans": "Floor Plans",
+  "cross sections": "Cross Sections"
 
 }
